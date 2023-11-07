@@ -1,0 +1,304 @@
+﻿@model NOVOROV.ViewModels.PerdasAndPassivosViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+
+    <head>
+        <link rel="stylesheet" href="~/css/jquery.datatables.min.css" />
+    </head>
+
+    <style>
+        /*table.dataTable.no-footer {
+                             border: 1px solid #dee2e6 !important;
+                        }*/
+
+
+        /*table.dataTable.no-footer {
+                                                border: 1px solid #dee2e6 !important;
+                                            }*/
+        .styled-table tbody {
+            //background-color: var(--primary);
+        }
+
+        .my-trs tr {
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+            .my-trs tr td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .my-trs tr:hover {
+                color: var(--primary);
+                transform: translateX(13px);
+            }
+    </style>
+}
+
+<div>
+    <button onclick="location.href='@Url.Action("Edit", "Ocorrencias", new { id = ViewBag.OcorrenciaId })'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<h3>Informações das Perdas</h3>
+<hr />
+<form asp-action="Edit" asp-route-ocorrenciaId="@ViewBag.OcorrenciaId">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Perda.Id" id="inputPerdaId" />
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.QuantidadePerda" class="control-label"></label>
+                <input asp-for="Perda.QuantidadePerda" class="form-control" />
+                <span asp-validation-for="Perda.QuantidadePerda" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.CodigoSinistro" class="control-label"></label>
+                <input asp-for="Perda.CodigoSinistro" class="form-control" />
+                <span asp-validation-for="Perda.CodigoSinistro" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.TipoEquipamentoId" class="control-label"></label>
+                <select asp-for="Perda.TipoEquipamentoId" class="form-control" asp-items="ViewBag.TipoEquipamentoId"></select>
+                <span asp-validation-for="Perda.TipoEquipamentoId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.ValorPerda" class="control-label"></label>
+                <input asp-for="Perda.ValorPerda" class="form-control" />
+                <span asp-validation-for="Perda.ValorPerda" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.ValorEfetivamenteRecuperado" class="control-label"></label>
+                <input asp-for="Perda.ValorEfetivamenteRecuperado" class="form-control" />
+                <span asp-validation-for="Perda.ValorEfetivamenteRecuperado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Perda.ValorPerdaEvitada" class="control-label"></label>
+                <input asp-for="Perda.ValorPerdaEvitada" class="form-control" />
+                <span asp-validation-for="Perda.ValorPerdaEvitada" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+    </div>
+</form>
+
+<button type="button" class="bttn-unite bttn-sm bttn-primary mt-4 btnTeste" data-toggle="modal" data-target="#exampleModalCenter" data-value="@Model.Perda.Id">
+    <i class="fas fa-file-import"></i>
+    Adicionar Novo Passivo
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Passivo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div id="conteudoModal">
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Passivo.ValorPassivo" class="control-label"></label>
+                                    <input asp-for="Passivo.ValorPassivo" class="form-control" id="valorPassivo" />
+                                    <span asp-validation-for="Passivo.ValorPassivo" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Passivo.ValorRecuperadoPassivo" class="control-label"></label>
+                                    <input asp-for="Passivo.ValorRecuperadoPassivo" class="form-control" id="valorRecuperadoPassivo" />
+                                    <span asp-validation-for="Passivo.ValorRecuperadoPassivo" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Passivo.TipoRessarcimentoId" class="control-label"></label>
+                                    <select asp-for="Passivo.TipoRessarcimentoId" class="form-control" id="tipoRessarcimentoPassivo" asp-items="ViewBag.TipoRessarcimentoId">
+                                        <option>Selecione...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Passivo.AreaInternaId" class="control-label"></label>
+                                    <select asp-for="Passivo.AreaInternaId" class="form-control" id="areaInternaPassivo" asp-items="ViewBag.AreaInternaId">
+                                        <option>Selecione...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Passivo.EmpresaId" class="control-label"></label>
+                                    <select asp-for="Passivo.EmpresaId" class="form-control" id="empresaPassivo" asp-items="ViewBag.EmpresaId">
+                                        <option>Selecione...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="Gravar" onclick="gravarPassivo()" class="btn btn-primary" data-dismiss="modal" aria-label="Close" />
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <table class="styled-table w-100">
+                <thead class="styled-table-thead">
+                    <tr>
+                        <th>
+                            Valor Passivo
+                        </th>
+                        <th>
+                            Valor Recuperado Passivo
+                        </th>
+                        <th>
+                            Tipo Ressarcimento
+                        </th>
+                        <th>
+                            Area Interna
+                        </th>
+                        <th>
+                            Empresa
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tabela">
+                </tbody>
+            </table>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        window.onload = carregarTabela();
+
+        function gravarPassivo(){
+
+            var valorPassivo = $("#valorPassivo").val();
+            var valorRecuperado = $("#valorRecuperadoPassivo").val();
+            var tipoRessarcimento = $("#tipoRessarcimentoPassivo").val();
+            var areaInterna = $("#areaInternaPassivo").val();
+            var empresa = $("#empresaPassivo").val();
+            var perdaId = $("#inputPerdaId").val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarPassivo")",
+                data: { "valorPassivo": valorPassivo, "valorRecuperado": valorRecuperado, "tipoRessarcimento": tipoRessarcimento, "areaInterna": areaInterna, "empresa": empresa, "perdaId": perdaId },
+                success: function (data) {
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+
+            setTimeout(function () {
+                carregarTabela();
+            }, 500);
+
+            $("#valorPassivo").val("");
+            $("#valorRecuperadoPassivo").val("");
+            $("#tipoRessarcimentoPassivo").val(1);
+            $("#areaInternaPassivo").val(1);
+            $("#empresaPassivo").val(1);
+
+        }
+
+        function carregarTabela(){
+
+            var lista = document.getElementById("tabela");
+            var perdaId = $("#inputPerdaId").val();
+
+            $.ajax(
+                {
+                    type: 'GET',
+                    url: '@Url.Action("CarregarTabela")',
+                    data: { "id": perdaId },
+                    success: function (data) {
+
+                            lista.innerHTML = '';
+                            var tamanhoArray = data.passivos.length
+                            console.log(data)
+                            if(tamanhoArray > 0){
+                                for (let i = 0; i < tamanhoArray; i++) {
+                                    var tr = document.createElement('tr');
+                                    lista.append(tr);
+
+                                    var valorPassivo = data.passivos[i].valorPassivo;
+                                    var valorRecuperadoPassivo = data.passivos[i].valorRecuperadoPassivo;
+                                    var tipoRessarcimento = data.passivos[i].tipoRessarcimento.nomeTipoRessarcimento;
+                                    var areaInterna = data.passivos[i].areaInterna.nomeAreaInterna;
+                                    var empresa = data.passivos[i].empresa.nomeEmpresa;
+                                    var passivoId = data.passivos[i].id;
+
+                                    $('#tabela').append("<tr>" +
+                                        "<td>" + valorPassivo + "</td>" +
+                                        "<td>" + valorRecuperadoPassivo + "</td>" +
+                                        "<td>" + tipoRessarcimento + "</td>" +
+                                        "<td>" + areaInterna + "</td>" +
+                                        "<td>" + empresa + "</td>" +
+                                        `<td> <a onclick="direcionamentoToActionEdit(${passivoId})" class="btn btn-icon text-primary"><i class="fa fa-file-signature"></i> </i> </td >` +
+                                        `<td> <a onclick="direcionamentoToActionDelete(${passivoId})" class="btn btn-icon text-danger"> <i class="fa fa-trash" > </i> </td >` +
+                                        "</tr>");
+
+                                }
+                            }else{
+                                    $('#tabela').append("<tr>" +
+                                        "<td>" + "Nenhum passivo cadastrado" + "</td>" +
+                                    "</tr>");
+                            }
+
+
+                    }
+                });
+        }
+
+        function direcionamentoToActionDelete(id) {
+
+            location.href = '@Url.Action("Delete", "Passivos")?id=' + id;
+
+        };
+
+        function direcionamentoToActionEdit(id) {
+
+            location.href = '@Url.Action("Edit", "Passivos")?id=' + id;
+
+        };
+
+    </script>
+}

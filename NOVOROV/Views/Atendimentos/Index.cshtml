@@ -1,0 +1,214 @@
+﻿@model IEnumerable<NOVOROV.Models.Atendimento>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<head>
+    <style>
+        .timeline {
+    border-left: 3px solid #727cf5;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+            background: #f5f5f5;
+    margin: 0 auto;
+    letter-spacing: 0.2px;
+    position: relative;
+    line-height: 1.4em;
+    font-size: 1.03em;
+    padding: 50px;
+    list-style: none;
+    text-align: left;
+    max-width: 80%;
+}
+
+
+
+.timeline h1 {
+    font-weight: 300;
+    font-size: 1.4em;
+}
+
+.timeline h2,
+.timeline h3 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.timeline .event {
+    border-bottom: 1px dashed #e8ebf1;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+
+.timeline .event:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.timeline .event:before,
+.timeline .event:after {
+    position: absolute;
+    display: block;
+    top: 0;
+}
+
+.timeline .event:before {
+    left: -207px;
+    content: attr(data-date);
+    text-align: right;
+    font-weight: 100;
+    font-size: 0.9em;
+    min-width: 120px;
+}
+
+
+
+.timeline .event:after {
+    -webkit-box-shadow: 0 0 0 3px #727cf5;
+    box-shadow: 0 0 0 3px #727cf5;
+    left: -55.8px;
+    background: #fff;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    content: "";
+    top: 5px;
+}
+
+
+
+.rtl .timeline {
+    border-left: 0;
+    text-align: right;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-right: 3px solid #727cf5;
+}
+
+.rtl .timeline .event::before {
+    left: 0;
+    right: -170px;
+}
+
+.rtl .timeline .event::after {
+    left: 0;
+    right: -55.8px;
+}
+    </style>
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @*<div class="card">*@
+                <div class="card-body">
+                    <div id="content">
+
+                        <ul class="timeline">
+                            @foreach (var item in Model.Reverse())
+                            {
+                            
+                                <li class="event mb-5" data-date="@item.DataAtendimento">
+                                    <div class="d-flex justify-content-between">
+                                        @if (item.StatusChamadoId != 1 && item.StatusChamadoId != 11)
+                                        {
+                                            <p class="card-title"><strong>@item.UsuarioResposta?.NomeUsuario - </strong><span class="badge badge-primary"> @item.StatusChamado.NomeStatusChamado </span></p>
+                                        }
+                                        else if(item.StatusChamadoId == 11)
+                                        {
+                                        <p class="card-title"><strong>@item.UsuarioResposta?.NomeUsuario - </strong><span class="badge badge-danger"> @item.StatusChamado.NomeStatusChamado </span></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-title"><strong>@item.UsuarioResposta?.NomeUsuario - </strong><span class="badge badge-success"> @item.StatusChamado.NomeStatusChamado </span></p>
+                                        }
+
+
+                                        <div>
+                                            <span class="badge badge-dark">EPS</span>
+                                        </div>
+
+                                    </div>
+                                    <p class="card-text">@item.Resposta</p>
+
+                                    @using (Html.BeginForm("DownloadFile", "Atendimentos", FormMethod.Post))
+                                    {
+                                        @if (item.NomeAnexoAtendimento != null)
+                                        {
+                                            <input type="hidden" name="FileId" value="@item.Id" multiple />
+                                            <button class="btn btn-icon text-primary" type="submit">
+                                                @item.NomeAnexoAtendimento
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <p></p>
+                                        }
+                                    }
+
+                                </li>
+                            <hr/>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            @*</div>*@
+        </div>
+    </div>
+</div>
+
+@*@foreach (var item in Model.Reverse())
+{
+    <div class="d-flex ">
+        <div class="align-self-center col-md-3" >
+            @item.DataAtendimento
+        </div>
+        <div class="card w-75 mt-3 border border-primary col" >
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    @if(item.StatusChamadoId != 1){
+                        <p class="card-title"><strong>@item.UsuarioResposta?.NomeUsuario - </strong><span class="badge badge-primary"> @item.StatusChamado.NomeStatusChamado </span></p>
+                    }
+                    else
+                    {
+                        <p class="card-title"><strong>@item.UsuarioResposta?.NomeUsuario - </strong><span class="badge badge-success"> @item.StatusChamado.NomeStatusChamado </span></p>
+                    }
+
+                        
+                    <div>
+                        <span class="badge badge-dark">EPS</span>
+                    </div>
+
+                </div>
+
+                <p class="card-text">@item.Resposta</p>
+                <hr />
+
+                @using (Html.BeginForm("DownloadFile", "Atendimentos", FormMethod.Post))
+                {
+                    @if (item.NomeAnexoAtendimento != null)
+                    {
+                        <input type="hidden" name="FileId" value="@item.Id" multiple />
+                        <button class="btn btn-icon text-primary" type="submit">
+                            @item.NomeAnexoAtendimento
+                        </button>
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+}*@

@@ -1,0 +1,246 @@
+﻿@model NOVOROV.Models.Usuario
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Editando usuário @Model.NomeUsuario</h4>
+<div>
+    <button onclick="location.href='@Url.Action("Index")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
+    <input type="hidden" asp-for="UsuarioId" />
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="UsuarioId" class="control-label"></label>
+                <input asp-for="UsuarioId" class="form-control" id="usuarioId" readonly/>
+                <span asp-validation-for="UsuarioId" class="text-danger">
+                </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="NomeUsuario" class="control-label">
+                </label>
+                <input asp-for="NomeUsuario" class="form-control" />
+                <span asp-validation-for="NomeUsuario" class="text-danger">
+                </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="EmailUsuario" class="control-label"></label>
+                <input asp-for="EmailUsuario" class="form-control" />
+                <span asp-validation-for="EmailUsuario" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="DataInicioAcesso" class="control-label"></label>
+                <input asp-for="DataInicioAcesso" class="form-control" />
+                <span asp-validation-for="DataInicioAcesso" class="text-danger">
+                </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="DataFimAcesso" class="control-label">
+                </label>
+                <input asp-for="DataFimAcesso" class="form-control" />
+                <span asp-validation-for="DataFimAcesso" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="from-group">
+                <label asp-for="CmcId" class="control-label">Cmc</label>
+                <select asp-for="CmcId" class="form-control" asp-items="ViewBag.CmcId">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="GestorId" class="control-label">Gestor</label>
+                <select asp-for="GestorId" class="form-control" asp-items="ViewBag.GestorId">
+                    <option>Selecione o Gestor:</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TelefoneUsuario" class="control-label"></label>
+                <input asp-for="TelefoneUsuario" class="form-control" />
+                <span asp-validation-for="TelefoneUsuario" class="text-danger">
+                </span>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="PerfilId" class="control-label">Perfil</label>
+                <select asp-for="PerfilId" class="form-control" asp-items="ViewBag.PerfilId">
+                    <option>Selecione o Perfil:</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" value="Index" class="bttn bttn-md bttn-unite bttn-primary">Gravar</button>
+    </div>
+</form>
+
+<h4 class="mt-2">Funcionalidades Atribuídas</h4>
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                Funcionalidade
+            </th>
+            <th>
+                Descrição
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tabela">
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Exclusão de funcionalidade</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div id="conteudoModal">
+
+                    <form>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <h6>Deseja remover essa funcionalidade desse perfil?</h6>
+                        <input id="inputValorIdRelacao" hidden />
+                        <div class="form-group">
+                            <input onclick="excluirFuncionalidadeAtribuida()" value="Excluir" class="btn btn-danger" data-dismiss="modal" aria-label="Close" />
+                            <input value="Voltar" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        function exibirFuncionalidades(id) {
+            var lista = document.getElementById("tabela");
+            var userId = document.getElementById("usuarioId").value;
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetFuncionalidades")",
+                data: { "id": id },
+                success: function (data) {
+
+                    lista.innerHTML = '';
+
+                    var tamanhoArray = data.funcionalidade.length
+
+                    if (tamanhoArray > 0) {
+                        for (let i = 0; i < tamanhoArray; i++) {
+                            var tr = document.createElement('tr');
+                            lista.append(tr);
+                            var nome = data.funcionalidade[i];
+                            var descricao = data.descricao[i];
+                            var id = data.idRelacao[i];
+                            $('#tabela').append("<tr>" +
+                                "<td>" + nome + "</td>" +
+                                "<td>" + descricao + "</td>" +
+                                `<td onclick="pegarIdRelacao(${id})"> <a class="btn btn-icon text-danger" data-toggle="modal" data-target="#exampleModalCenter" data-value="${id}"> <i class="fa fa-trash" > </i> </td >` +
+                                "</tr>");
+
+                        }
+                    }
+                    else {
+                        $('#tabela').append("<td>" + "Nenhuma funcionalidade atribuída a esse usuário" + "</td>");
+                    }
+
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            var userId = document.getElementById("usuarioId").value;
+            exibirFuncionalidades(userId)
+        })
+
+        function direcionamentoToActionDelete(id) {
+
+            location.href = '@Url.Action("Delete", "PerfilFuncionalidades")?id=' + id;
+
+        };
+
+        function pegarIdRelacao(id) {
+            var inputValorIdRelacao = document.getElementById("inputValorIdRelacao");
+            inputValorIdRelacao.value = id;
+            return id;
+        }
+
+        function excluirFuncionalidadeAtribuida() {
+
+            var inputEscondido = document.getElementById("inputValorIdRelacao");
+            var id = inputEscondido.value;
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteUsuarioFuncionalidadeAtribuida")",
+                dataType: "json",
+                data: { "id": id },
+
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (req, status, error) {
+                    console.log(error)
+
+                }
+            });
+
+            var inputUsuarioId = document.getElementById("usuarioId").value;
+            console.log(inputUsuarioId)
+
+            setTimeout(function () {
+                exibirFuncionalidades(inputUsuarioId)
+            }, 600);
+
+        }
+
+    </script>
+
+}

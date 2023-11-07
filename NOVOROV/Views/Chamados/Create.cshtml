@@ -1,0 +1,124 @@
+﻿@model NOVOROV.Models.Chamado
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Chamados")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+@*<h4>Criar Chamado</h4>*@
+<h4>ABERTURA DE CHAMADO - MANUTENÇÃO DEGUSTADORES</h4>
+<h5>Descrição:Solicitar abertura para manutenção de degustadores</h5>
+<hr />
+
+    
+<form asp-action="Create">
+
+   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="tab-pane fade show active" id="nav-dadosRegistro" role="tabpanel" aria-labelledby="nav-dadosRegistro-tab">
+
+             <div class="row mb-3">
+                 <div class="col">
+                      <div class="form-group">
+                           <label  class="control-label">Usuário operador</label>
+                           <input class="form-control" readonly value="@TempData["NomeUsuario"]" />
+                      </div>
+                 </div>
+                 <div class="col">
+                      <div class="form-group">
+                           <label asp-for="SolicitanteId" class="control-label"></label>
+                           <select asp-for="SolicitanteId" class ="form-control" asp-items="ViewBag.SolicitanteId">
+                               <option>Selecione...</option>
+                           </select>
+                      </div>
+                 </div>
+                 @*<div class="col">
+                    <div class="form-group">
+                    <label asp-for="DataAbertura" class="control-label"></label>
+                    <input asp-for="DataAbertura" class="form-control" />
+                    <span asp-validation-for="DataAbertura" class="text-danger"></span>
+                    </div>
+                 </div>*@
+                 <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Data Abertura</label>
+                        <input class="form-control" value="@TempData["DataAbertura"]" readonly />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+             </div>
+             <div class="row mb-3">
+                 <div class="col">
+                      <div class="form-group">
+                           <label asp-for="EmailSolicitante" class="control-label"></label>
+                           <input asp-for="EmailSolicitante" class="form-control" />
+                           <span asp-validation-for="EmailSolicitante" class="text-danger"></span>
+                      </div>
+                 </div>
+                 <div class="col">
+                      <div class="form-group">
+                            <label asp-for="UF" class="control-label"></label>
+                            <input asp-for="UF" class="form-control" />
+                            <span asp-validation-for="UF" class="text-danger"></span>
+                      </div>
+                 </div>
+                 <div class="col">
+                      <div class="form-group">
+                           <label asp-for="loja" class="control-label"></label>
+                           <input asp-for="loja" class="form-control" />
+                           <span asp-validation-for="loja" class="text-danger"></span>
+                      </div>
+                 </div>
+             </div>
+             <div class="row mb-3">
+                  <div class="col">
+                       <div class="form-group">
+                            <label asp-for="ResponsavelTrativa" class="control-label"></label>
+                            <input asp-for="ResponsavelTrativa" class="form-control" />
+                            <span asp-validation-for="ResponsavelTrativa" class="text-danger"></span>
+                       </div>
+                  </div>
+                  <div class="col">
+                       <div class="form-group">
+                            <label asp-for="ContatoResponsavel" class="control-label"></label>
+                            <input asp-for="ContatoResponsavel" class="form-control" />
+                            <span asp-validation-for="ContatoResponsavel" class="text-danger"></span>
+                       </div>
+                  </div>  
+             </div>
+             <div class="row">
+                  <div class="col">
+                        <div class="form-group">
+                             <label asp-for="EmailResponsavelTratativa" class="control-label"></label>
+                             <input asp-for="EmailResponsavelTratativa" class="form-control" />
+                             <span asp-validation-for="EmailResponsavelTratativa" class="text-danger"></span>
+                        </div>
+                  </div>
+             </div>
+             <div class="row">
+                  <div class="col">   
+                       <div class="form-group">
+                            <label asp-for="Solicitacao" class="control-label"></label>
+                            <textarea asp-for="Solicitacao" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Solicitacao" class="text-danger"></span>
+                       </div>
+                  </div>  
+             </div>
+
+            <button type="submit" class="bttn bttn-md bttn-unite bttn-primary mb-3">Gravar</button>
+
+             @*<div class="form-group">
+                  <input type="submit" value="Create" class="btn btn-primary" />
+             </div>*@
+             
+        </div>   
+</form>
+  
+
+

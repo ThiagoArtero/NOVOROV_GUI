@@ -1,0 +1,78 @@
+﻿@model IEnumerable<NOVOROV.Models.AnexosChamado>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.NomeAnexo)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.DataAnexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutorId)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.DescricaoAnexo)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.TipoAnexo)
+            </th>*@
+            <th style="text-align:center">
+                Imagem
+            </th>
+            <th style="text-align:center">
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.DescricaoAnexo)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Produto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                @if (item.Bytes != null)
+                {
+                    <td style="text-align:center">
+                        @{
+                            var base64 = Convert.ToBase64String(item.Bytes);
+                            var img = string.Format($"data:image/jpeg;base64,{base64}");
+                        }
+
+                        <img src='@img' width="50px" alt="Imagem do anexo" />
+
+                    </td>
+                }
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

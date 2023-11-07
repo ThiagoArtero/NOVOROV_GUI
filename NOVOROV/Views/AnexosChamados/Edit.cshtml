@@ -1,0 +1,84 @@
+﻿@model NOVOROV.Models.AnexosChamado
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Editando Anexo @Model.NomeAnexo</h4>
+
+<hr />
+
+<form asp-action="Edit" asp-route-chamadoId="@ViewBag.ChamadoId" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="NomeAnexo" />
+    <input type="hidden" asp-for="DataAnexo" />
+    <input type="hidden" asp-for="Autor" />
+    <input type="hidden" asp-for="ChamadoId" />
+    <input type="hidden" asp-for="Bytes" />
+    <input type="hidden" asp-for="ContentType" />
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Produto" class="control-label"></label>
+                <input asp-for="Produto" class="form-control" />
+                <span asp-validation-for="Produto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Quantidade" class="control-label"></label>
+                <input asp-for="Quantidade" class="form-control" />
+                <span asp-validation-for="Quantidade" class="text-danger"></span>
+            </div>
+        </div><div class="col">
+            <div class="form-group">
+                <label asp-for="Comentario" class="control-label"></label>
+                <input asp-for="Comentario" class="form-control" />
+                <span asp-validation-for="Comentario" class="text-danger"></span>
+            </div>
+        </div>
+       @* <div class="col">
+            <div class="form-group">
+                <label asp-for="DescricaoAnexo" class="control-label"></label>
+                <input asp-for="DescricaoAnexo" class="form-control" />
+                <span asp-validation-for="DescricaoAnexo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoAnexoId" class="control-label"></label>
+                <select asp-for="TipoAnexoId" class="form-control" asp-items="ViewBag.TipoAnexoId"></select>
+            </div>
+        </div>*@
+        <div class="col">
+            <div class="form-group">
+                <label class="control-label">Anexar o documento:</label>
+                <input type="file" name="postedFile" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <input type="submit" value="Gravar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

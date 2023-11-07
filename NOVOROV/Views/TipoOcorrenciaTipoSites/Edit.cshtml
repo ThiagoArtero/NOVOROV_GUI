@@ -1,0 +1,32 @@
+﻿@model NOVOROV.Models.TipoOcorrenciaTipoSite
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Editando tipo ocorrência @Model.Id</h4>
+<a asp-action="Index">Voltar</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="TipoSiteId" class="control-label"></label>
+                <select asp-for="TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId"></select>
+                <span asp-validation-for="TipoSiteId" class="text-danger"></span>
+            </div>
+           @* <div class="form-group">
+                <label asp-for="TipoOcorrenciaId" class="control-label"></label>
+                <select asp-for="TipoOcorrenciaId" class="form-control" asp-items="ViewBag.TipoOcorrenciaId"></select>
+                <span asp-validation-for="TipoOcorrenciaId" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

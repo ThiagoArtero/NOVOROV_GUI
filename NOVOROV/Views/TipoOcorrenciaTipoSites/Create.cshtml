@@ -1,0 +1,396 @@
+﻿@model NOVOROV.Models.TipoOcorrenciaTipoSite
+
+@{
+    ViewData["Title"] = "Novo tipo de ocorrencia / tipo site!";
+}
+
+<h4>Manutenção de site e ocorrência</h4>
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="TipoSiteId" class="control-label">Tipo Site</label>
+        <select asp-for="TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="ddlTipoSite" onchange="carregaCheckBox()">
+            <option>Selecionar novo site</option>
+        </select>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-check">
+                @*<input class="form-check-input" asp-for="checkACD" /> @Html.DisplayNameFor(model => model.checkACD)*@
+                <input class="form-check-input" type="checkbox" value="1" id="checkACD">
+                <label class="form-check-label" for="flexCheckDefault">
+                    ACD
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="checkACI">
+                <label class="form-check-label" for="flexCheckChecked">
+                    ACI
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="3" id="checkDES">
+                <label class="form-check-label" for="flexCheckChecked">
+                    DES
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="4" id="checkDPD">
+                <label class="form-check-label" for="flexCheckChecked">
+                    DPD
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="5" id="checkEME">
+                <label class="form-check-label" for="flexCheckChecked">
+                    EME
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class ="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="6" id="checkEST">
+                <label class="form-check-label" for="flexCheckChecked">
+                    EST
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="7" id="checkFEX">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FEX
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="8" id="checkFRA">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FRA
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="9" id="checkFRT">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FRT
+                </label>
+            </div>
+        </div>
+       <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10" id="checkINC">
+                <label class="form-check-label" for="flexCheckChecked">
+                    INC
+                </label>
+            </div>
+       </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class=" col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="11" id="checkMEQ">
+                <label class="form-check-label" for="flexCheckChecked">
+                    MEQ
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="12" id="checkMSS">
+                <label class="form-check-label" for="flexCheckChecked">
+                    MSS
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="13" id="checkNCI">
+                <label class="form-check-label" for="flexCheckChecked">
+                    NCI
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="14" id="checkNPC">
+                <label class="form-check-label" for="flexCheckChecked">
+                    NPC
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="15" id="checkOutros">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Outros
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+             <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="16" id="checkPEV">
+                <label class="form-check-label" for="flexCheckChecked">
+                     PEV
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="17" id="checkRBO">
+                <label class="form-check-label" for="flexCheckChecked">
+                    RBO
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="18" id="checkREX">
+                <label class="form-check-label" for="flexCheckChecked">
+                    REX
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="19" id="checkSAB">
+                <label class="form-check-label" for="flexCheckChecked">
+                    SAB
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="20" id="checkSIS">
+                <label class="form-check-label" for="flexCheckChecked">
+                    SIS
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button id="botaoAtribuir" onclick="pegarId(), deletaNaoAdicionados()" class="btn btn-primary">
+            Atribuir
+        </button>
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+
+        function pegarId() {
+
+            var idDdlTipoSite = $("#ddlTipoSite").val()
+
+            var checkACD = document.getElementById("checkACD");
+            var checkACI = document.getElementById("checkACI");
+            var checkDES = document.getElementById("checkDES");
+            var checkDPD = document.getElementById("checkDPD");
+            var checkEME = document.getElementById("checkEME");
+            var checkEST = document.getElementById("checkEST");
+            var checkFEX = document.getElementById("checkFEX");
+            var checkFRA = document.getElementById("checkFRA");
+            var checkFRT = document.getElementById("checkFRT");
+            var checkINC = document.getElementById("checkINC");
+            var checkMEQ = document.getElementById("checkMEQ");
+            var checkMSS = document.getElementById("checkMSS");
+            var checkNCI = document.getElementById("checkNCI");
+            var checkNPC = document.getElementById("checkNPC");
+            var checkOutros = document.getElementById("checkOutros");
+            var checkPEV = document.getElementById("checkPEV");
+            var checkRBO = document.getElementById("checkRBO");
+            var checkREX = document.getElementById("checkREX");
+            var checkSAB = document.getElementById("checkSAB");
+            var checkSIS = document.getElementById("checkSIS");
+
+            var arrayTipoOcorrencia = [checkACD, checkACI, checkDES, checkDPD, checkEME, checkEST, checkFEX,
+                checkFRA, checkFRT, checkINC, checkMEQ, checkMSS, checkNCI, checkNPC, checkOutros, checkPEV, checkRBO, checkREX, checkSAB, checkSIS];
+            //, checkPEV,
+            //checkRBO, checkREX, checkSAB, checkSIS];
+
+            var arrayTiposAdicionados = [];
+
+            for (let i = 0; i < arrayTipoOcorrencia.length; i++) {
+
+                if (arrayTipoOcorrencia[i].checked) {
+                    arrayTiposAdicionados.push(arrayTipoOcorrencia[i].value);
+                }
+            }
+
+            for (let i = 0; i < arrayTiposAdicionados.length; i++) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PegaIdTipoOcorrencia")",
+                    dataType: "json",
+                    data: { idDdlTipoSite: idDdlTipoSite, idTipoOcorrencia: arrayTiposAdicionados[i] },
+
+                    success: function (data) {
+                        console.log(data)
+
+                    },
+                    error: function (req, status, error) {
+                        console.log(error)
+
+                    }
+                })
+            }
+        }
+                    
+        function carregaCheckBox(){
+            var idDdlTipoSite = $("#ddlTipoSite").val()
+
+            var checkACD = document.getElementById("checkACD");
+            var checkACI = document.getElementById("checkACI");
+            var checkDES = document.getElementById("checkDES");
+            var checkDPD = document.getElementById("checkDPD");
+            var checkEME = document.getElementById("checkEME");
+            var checkEST = document.getElementById("checkEST");
+            var checkFEX = document.getElementById("checkFEX");
+            var checkFRA = document.getElementById("checkFRA");
+            var checkFRT = document.getElementById("checkFRT");
+            var checkINC = document.getElementById("checkINC");
+            var checkMEQ = document.getElementById("checkMEQ");
+            var checkMSS = document.getElementById("checkMSS");
+            var checkNCI = document.getElementById("checkNCI");
+            var checkNPC = document.getElementById("checkNPC");
+            var checkOutros = document.getElementById("checkOutros");
+            var checkPEV = document.getElementById("checkPEV");
+            var checkRBO = document.getElementById("checkRBO");
+            var checkREX = document.getElementById("checkREX");
+            var checkSAB = document.getElementById("checkSAB");
+            var checkSIS = document.getElementById("checkSIS");
+
+            var arrayTipoOcorrencia = [checkACD, checkACI, checkDES, checkDPD, checkEME, checkEST, checkFEX,
+                checkFRA, checkFRT, checkINC, checkMEQ, checkMSS, checkNCI, checkNPC, checkOutros, checkPEV,
+                checkRBO, checkREX, checkSAB, checkSIS];
+
+            for(let i = 0; i < arrayTipoOcorrencia.length; i++){
+
+                arrayTipoOcorrencia[i].checked = false;
+
+            }
+
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetTipoOcorrencia")",
+                    dataType: "json",
+                    data: { idTipoSite: idDdlTipoSite },
+
+                    success: function (data) {
+
+                    var arrayTiposAdicionados = [];
+
+                    for (let i = 0; i < data.tipo.length; i++) {
+
+                        arrayTiposAdicionados.push(data.tipo[i] - 1);
+
+                    }
+
+                        for (let i = 0; i < arrayTiposAdicionados.length; i++) {
+
+                            var valor = arrayTiposAdicionados[i];
+
+                            arrayTipoOcorrencia[valor].checked = true;
+                        
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log(error)
+
+                    }
+                })
+            
+        }       
+        
+        function deletaNaoAdicionados(){
+
+
+            var idDdlTipoSite = $("#ddlTipoSite").val();
+
+            var checkACD = document.getElementById("checkACD");
+            var checkACI = document.getElementById("checkACI");
+            var checkDES = document.getElementById("checkDES");
+            var checkDPD = document.getElementById("checkDPD");
+            var checkEME = document.getElementById("checkEME");
+            var checkEST = document.getElementById("checkEST");
+            var checkFEX = document.getElementById("checkFEX");
+            var checkFRA = document.getElementById("checkFRA");
+            var checkFRT = document.getElementById("checkFRT");
+            var checkINC = document.getElementById("checkINC");
+            var checkMEQ = document.getElementById("checkMEQ");
+            var checkMSS = document.getElementById("checkMSS");
+            var checkNCI = document.getElementById("checkNCI");
+            var checkNPC = document.getElementById("checkNPC");
+            var checkOutros = document.getElementById("checkOutros");
+            var checkPEV = document.getElementById("checkPEV");
+            var checkRBO = document.getElementById("checkRBO");
+            var checkREX = document.getElementById("checkREX");
+            var checkSAB = document.getElementById("checkSAB");
+            var checkSIS = document.getElementById("checkSIS");
+
+            var arrayTipoOcorrencia = [checkACD, checkACI, checkDES, checkDPD, checkEME, checkEST, checkFEX,
+                checkFRA, checkFRT, checkINC, checkMEQ, checkMSS, checkNCI, checkNPC, checkOutros, checkPEV,
+                checkRBO, checkREX, checkSAB, checkSIS];
+
+
+            for(let i = 0; i < arrayTipoOcorrencia.length; i++){
+
+                if(arrayTipoOcorrencia[i].checked == false){
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("DeletarTipoSiteTipoOcorrencia")",
+                        dataType: "json",
+                        data: { idTipoSite: idDdlTipoSite, idTipoOcorrencia: arrayTipoOcorrencia[i].value },
+
+                        success: function (data) {
+                            console.log(data)
+                        },
+                        error: function (req, status, error) {
+                            console.log(error)
+
+                        }
+                    })
+
+                }
+
+            }
+
+
+
+        }
+
+        </script>
+}
+
+
+

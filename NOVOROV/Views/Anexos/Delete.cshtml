@@ -1,0 +1,55 @@
+﻿@model NOVOROV.Models.Anexo
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Tem certeza que deseja apagar este anexo?</h3>
+
+<div>
+    <button onclick="location.href='@Url.Action("Edit", "Ocorrencias", new { id = ViewBag.OcorrenciaId })'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeAnexo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomeAnexo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataAnexo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataAnexo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AutorId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Autor.NomeUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DescricaoAnexo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DescricaoAnexo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoAnexo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoAnexo.NomeTipoAnexo)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" asp-route-ocorrenciaId="@ViewBag.OcorrenciaId">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+    </form>
+</div>

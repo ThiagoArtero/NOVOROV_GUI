@@ -1,0 +1,932 @@
+﻿@model NOVOROV.ViewModels.OcorrenciasInFiltro;
+
+@{
+    ViewData["Title"] = "Relatórios";
+}
+
+<h4 class="mb-3">Relatórios</h4>
+
+
+@using (Html.BeginForm("ExportFile", "Relatorios", FormMethod.Post))
+{
+
+    <div class="card p-3 mb-3">
+
+        <div class="row">
+            <div class="col">
+                <div class="from-group">
+                    <label class="control-label">Nº Ocorrência</label>
+                    <input class="form-control" id="numeroOcorrencia" name="idOcorrencia">
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.StatusId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.StatusId" class="form-control" asp-items="ViewBag.StatusId" id="status" name="idStatus">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.CmcId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.CmcId" class="form-control" asp-items="ViewBag.CmcId" id="cmc" name="idCmc">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.InboxId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.InboxId" class="form-control" asp-items="ViewBag.InboxId" id="inbox" name="idInbox">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.TipoOcorrenciaId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.TipoOcorrenciaId" class="form-control" asp-items="ViewBag.TipoOcorrenciaId" id="tipoOcorrencia" name="idTipoOcorrencia">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.Estado" class="control-label"></label>
+                    <select asp-for="Ocorrencia.Estado" class="form-control" id="filtroUF" name="Estado">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.ResponsavelOperacionalId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.ResponsavelOperacionalId" class="form-control" asp-items="ViewBag.ResponsavelOperacionalId" id="responsavelOperacional" name="idResponsavelOperacional">
+                        <option value="0">Selecione...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.TipoSiteId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="tipoSite" name="idTipoSite">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="Ocorrencia.SeguimentoId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.SeguimentoId" class="form-control" asp-items="ViewBag.SeguimentoId" id="seguimento" name="idSeguimento">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label class="control-label">Aberto Entre:</label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="from-group">
+                            <input type="date" class="form-control" id="primeiraData" name="primeiraData" value="0" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="from-group">
+                            <input type="date" class="form-control" id="segundaData" name="segundaData" value="0" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex mt-3">
+            <div class="p-2 mr-1">
+                <div class="form-group">
+                    <input type="button" value="Filtrar" onclick="filtrarRelatorio()" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="p-2">
+                <h5 class="panel-title">
+                    <button class="btn btn-success" type="submit" onclick="desativarModeloRelatorio()">
+                        <i class="fa fa-file-signature"></i>
+                        Exportar relatório
+                    </button>
+                </h5>
+            </div>
+            <div class="p-2" style="margin-left: 28rem">
+                <div class="from-group">
+                    <select class="form-control" asp-items="ViewBag.ModeloRelatorioId" onchange="selecionarModeloRelatorio()" id="selectModeloRelatorio">
+                        <option>Selecionar Modelo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="d-flex" id="divCheckCampos">
+        <div class="p-2">
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="id" id="checkId" name="checkId">
+                <label class="form-check-label">
+                    Número ROV
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="acionadoProntoAtendimento" id="checkAcionadoProntoAtendimento" name="checkAcionadoProntoAtendimento">
+                <label class="form-check-label">
+                    Acionado Pronto Atendimento
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="alarmeRealAcidental" id="checkAlarmeRealAcidental" name="checkAlarmeRealAcidental">
+                <label class="form-check-label">
+                    Alarme Real Acidental
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="ambiente" id="checkAmbiente" name="checkAmbiente">
+                <label class="form-check-label">
+                    Ambiente
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="analiseConclusao" id="checkAnaliseConclusao" name="checkAnaliseConclusao">
+                <label class="form-check-label">
+                    Analise Conclusão
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="areaInterna" id="checkAreaInterna" name="checkAreaInterna">
+                <label class="form-check-label">
+                    Área Interna
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="areaSaude" id="checkAreaSaude" name="checkAreaSaude">
+                <label class="form-check-label">
+                    Área Saúde
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="areaTratamento" id="checkAreaTratamento" name="checkAreaTratamento">
+                <label class="form-check-label">
+                    Área Tratamento
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="atendeuSLA" id="checkAtendeuSLA" name="checkAtendeuSLA">
+                <label class="form-check-label">
+                    Atendeu SLA
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="bombeiroCivil" id="checkBombeiroCivil" name="checkBombeiroCivil">
+                <label class="form-check-label">
+                    Bombeiro Civil
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="cargoFuncao" id="checkCargoFuncao" name="checkCargoFuncao">
+                <label class="form-check-label">
+                    Cargo/Função
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="cep" id="checkCep" name="checkCep">
+                <label class="form-check-label">
+                    CEP
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="cmc" id="checkCmc" name="checkCmc">
+                <label class="form-check-label">
+                    Cmc
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="codigoSinistro" id="checkCodigoSinistro" name="checkCodigoSinistro">
+                <label class="form-check-label">
+                    Código Sinistro
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="conclusao" id="checkConclusao" name="checkConclusao">
+                <label class="form-check-label">
+                    Conclusão
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="condutor" id="checkCondutor" name="checkCondutor">
+                <label class="form-check-label">
+                    Condutor
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="dataConclusao" id="checkDataConclusao" name="checkDataConclusao">
+                <label class="form-check-label">
+                    Data Conclusão
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="dataConclusaoChamado" id="checkDataConclusaoChamado" name="checkDataConclusaoChamado">
+                <label class="form-check-label">
+                    Data Conclusão Chamado
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="dataOcorrencia" id="checkDataOcorrencia" name="checkDataOcorrencia">
+                <label class="form-check-label">
+                    Data Ocorrência
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="dataReagendamentoSis" id="checkDataReagendamentoSis" name="checkDataReagendamentoSis">
+                <label class="form-check-label">
+                    Data ReagendamentoSis
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="dataRegistro" id="checkDataRegistro" name="checkDataRegistro">
+                <label class="form-check-label">
+                    Data Registro
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="detentora" id="checkDetentora" name="checkDetentora">
+                <label class="form-check-label">
+                    Detentora
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="diasConclusao" id="checkDiasConclusao" name="checkDiasConclusao">
+                <label class="form-check-label">
+                    Dias Conclusao
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="emSeguimento" id="checkEmSeguimento" name="checkEmSeguimento">
+                <label class="form-check-label">
+                    Em Seguimento
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="empresa" id="checkEmpresa" name="checkEmpresa">
+                <label class="form-check-label">
+                    Empresa
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="endereco" id="checkEndereco" name="checkEndereco">
+                <label class="form-check-label">
+                    Endereço
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="envolvido" id="checkEnvolvido" name="checkEnvolvido">
+                <label class="form-check-label">
+                    Envolvido
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="eventoERB" id="checkEventoERB" name="checkEventoERB">
+                <label class="form-check-label">
+                    Evento ERB
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="historico" id="checkHistorico" name="checkHistorico">
+                <label class="form-check-label">
+                    Histórico
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="inbox" id="checkInbox" name="checkInbox">
+                <label class="form-check-label">
+                    Inbox
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="informacaoComplementar" id="checkinformacaoComplementar" name="checkinformacaoComplementar">
+                <label class="form-check-label">
+                    Informação Complementar
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="local" id="checkLocal" name="checkLocal">
+                <label class="form-check-label">
+                    Local
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="manutencao" id="checkManutencao" name="checkManutencao">
+                <label class="form-check-label">
+                    Manutenção
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="motivoSis" id="checkMotivoSis" name="checkMotivoSis">
+                <label class="form-check-label">
+                    Motivo Sis
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="municipio" id="checkMunicipio" name="checkMunicipio">
+                <label class="form-check-label">
+                    Município
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="nomeSite" id="checkNomeSite" name="checkNomeSite">
+                <label class="form-check-label">
+                    NomeSite
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="perda" id="checkPerda" name="checkPerda">
+                <label class="form-check-label">
+                    Nº Perda
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="placa" id="checkPlaca" name="checkPlaca">
+                <label class="form-check-label">
+                    Placa
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="qualificacao" id="checkQualificacao" name="checkQualificacao">
+                <label class="form-check-label">
+                    Qualificação
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="quantidadePerda" id="checkQuantidadePerda" name="checkQuantidadePerda">
+                <label class="form-check-label">
+                    Quantidade de Perda
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="recuperacao" id="checkRecuperacao" name="checkRecuperacao">
+                <label class="form-check-label">
+                    Recuperação
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="registroPolicial" id="checkRegistroPolicial" name="checkRegistroPolicial">
+                <label class="form-check-label">
+                    Registro Policial
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="responsavelOperacional" id="checkResponsavelOperacional" name="checkResponsavelOperacional">
+                <label class="form-check-label">
+                    Responsável Operacional
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="seguimento" id="checkSeguimento" name="checkSeguimento">
+                <label class="form-check-label">
+                    Seguimento
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="sistemaFechaduraBluetooth" id="checkSistemaFechaduraBluetooth" name="checkSistemaFechaduraBluetooth">
+                <label class="form-check-label">
+                    Sistema Fechadura Bluetooth
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="sistemaRastreamento" id="checkSistemaRastreamento" name="checkSistemaRastreamento">
+                <label class="form-check-label">
+                    Sistema Rastreamento
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="status" id="checkStatus" name="checkStatus">
+                <label class="form-check-label">
+                    Status
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tipoAlarme" id="checkTipoAlarme" name="checkTipoAlarme">
+                <label class="form-check-label">
+                    Tipo de Alarme
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tipoSite" id="checkTipoSite" name="checkTipoSite">
+                <label class="form-check-label">
+                    Tipo Site
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tipoOcorrencia" id="checkTipoOcorrencia" name="checkTipoOcorrencia">
+                <label class="form-check-label">
+                    Tipo Ocorrência
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="transportadora" id="checkTransportadora" name="checkTransportadora">
+                <label class="form-check-label">
+                    Transportadora
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="observacao" id="checkObservacao" name="checkObservacao">
+                <label class="form-check-label">
+                    Observacao
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="orgaoPublico" id="checkOrgaoPublico" name="checkOrgaoPublico">
+                <label class="form-check-label">
+                    Órgão Público
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="planoDeEmergencia" id="checkPlanoDeEmergencia" name="checkPlanoDeEmergencia">
+                <label class="form-check-label">
+                    Plano de Emergência
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="estado" id="checkEstado" name="checkEstado">
+                <label class="form-check-label">
+                    UF
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="usuarioAlteracaoOcorrencia" id="checkUsuarioAlteracaoOcorrencia" name="checkUsuarioAlteracaoOcorrencia">
+                <label class="form-check-label">
+                    Usuário Alteração Ocorrência
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="valorPerdaEvitada" id="checkValorPerdaEvitada" name="checkValorPerdaEvitada">
+                <label class="form-check-label">
+                    Valor Perda Evitada
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="numeroDano" id="checkNuemroDano" name="checkNuemroDano">
+                <label class="form-check-label">
+                    Nuemro Dano
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="nomeEquipamentoPerda" id="checkNomeEquipamentoPerda" name="checkNomeEquipamentoPerda">
+                <label class="form-check-label">
+                    Nome Equipamento Perda
+                </label>
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="numeroBO" id="checkNumeroBO" name="checkNumeroBO">
+                <label class="form-check-label">
+                    Numero BO
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tipoAcesso" id="checkTipoAcesso" name="checkTipoAcesso">
+                <label class="form-check-label">
+                    Tipo Acesso
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="tipoEquipamentoPerda" id="checkTipoEquipamentoPerda" name="checkTipoEquipamentoPerda">
+                <label class="form-check-label">
+                    Tipo Equipamento Perda
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="valorDano" id="checkValorDanp" name="checkValorDano">
+                <label class="form-check-label">
+                    Valor Dano
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="valorPassivoRecuperacao" id="checkValorPassivoRecuperacao" name="checkValorPassivoRecuperacao">
+                <label class="form-check-label">
+                   Valor Passivo Recuperação
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="valorRecuperacaoPassivo" id="checkValorRecuperacaoPassivo" name="checkValorRecuperacaoPassivo">
+                <label class="form-check-label">
+                    Valor Recuperação Passivo
+                </label>
+            </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="valorRecuperado" id="checkValorRecuperado" name="checkValorRecuperado">
+                    <label class="form-check-label">
+                        Valor Recuperado
+                    </label>
+                </div>
+        </div>
+
+        <div class="">
+             <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkSelecionarTodos" name="checkSelecionarTodos" onchange="selectAll()">
+                <label class="form-check-label">
+                    Selecionar Todos
+                </label>
+            </div>
+        </div>
+            
+        <div class="ml-auto p-2">
+            <div class="form-check" hidden>
+                <input class="form-check-input" type="checkbox" value="modeloRelatorioAtivo" id="modeloRelatorioAtivo" name="modeloRelatorioAtivo">
+                <label class="form-check-label">
+                    Modelo Ativo?
+                </label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="from-group">
+                        <label asp-for="ModeloRelatorio.NomeModelo" class="control-label">Nome Modelo</label>
+                        <input asp-for="ModeloRelatorio.NomeModelo" class="form-control" name="nomeModelo" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="from-group">
+                        <label asp-for="ModeloRelatorio.TipoRelatorioId" class="control-label">Tipo de Relatório</label>
+                        <select asp-for="ModeloRelatorio.TipoRelatorioId" class="form-control" asp-items="ViewBag.TipoRelatorioId" name="idTipoModelo"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <button type="submit" value="Gravar" class="btn btn-primary" data-dismiss="modal" aria-label="Close" onclick="acionarModeloRelatorio()">Adicionar Modelo</button>
+            </div>
+        </div>
+    </div>
+
+   
+ @*   <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Modelo de Relatório</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="conteudoModal">
+
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="from-group">
+                                        <label asp-for="ModeloRelatorio.NomeModelo" class="control-label">Nome Modelo</label>
+                                        <input asp-for="ModeloRelatorio.NomeModelo" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="from-group">
+                                        <label asp-for="ModeloRelatorio.TipoRelatorioId" class="control-label">Tipo de Relatório</label>
+                                        <select asp-for="ModeloRelatorio.TipoRelatorioId" class="form-control" asp-items="ViewBag.TipoRelatorioId"></select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group mt-2">
+                                <button type="submit" value="Gravar" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Gravar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+}
+
+@*<h5 class="panel-title mt-3">
+    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <i class="fa fa-plus" aria-hidden="true" style="color:white"></i>
+        Modelo
+    </button>
+</h5>*@
+
+
+
+
+<div id="partialZone">
+</div>
+
+
+@*<partial name="Filtro" model="Model"/>*@
+
+
+
+@section Scripts{
+
+    @*<script src="~/js/site.js"></script>*@
+    @*<script src="~/js/localidade.js"></script>*@
+    <script src="~/js/site.js"></script>
+
+    <script type="text/javascript">
+
+        function filtrarRelatorio() {
+
+            let status = $("#status").val() == "Selecione..." ? 0 : $("#status").val();
+            let cmc = $("#cmc").val() == "Selecione..." ? 0 : $("#cmc").val();
+            let inbox = $("#inbox").val() == "Selecione..." ? 0 : $("#inbox").val();
+            let tipoOcorrencia = $("#tipoOcorrencia").val() == "Selecione..." ? 0 : $("#tipoOcorrencia").val();
+            let responsavelOperacional = $("#responsavelOperacional").val() == "Selecione..." ? 0 : $("#responsavelOperacional").val();
+            let tipoSite = $("#tipoSite").val() == "Selecione..." ? 0 : $("#tipoSite").val();
+            let seguimento = $("#seguimento").val() == "Selecione..." ? 0 : $("#seguimento").val();
+            let primeiraData = $("#primeiraData").val();
+            let segundaData = $("#segundaData").val();
+            let numeroOcorrencia = $("#numeroOcorrencia").val();
+
+            if(!primeiraData && !segundaData){
+                alert('Selecione o período de datas!');
+                return false;
+            }
+
+            if(verificarPeriodo(primeiraData, segundaData)){
+                alert('Perído de datas maior que 7 dias!');
+                return false;
+            }
+
+            data1Formatada = primeiraData ? new Date(primeiraData).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : 0;
+            data2Formatada = segundaData ? new Date(segundaData).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : 0;
+
+            $('#partialZone').load(`/Relatorios/Filtro?idStatus=${status}&idCmc=${cmc}&idInbox=${inbox}&idTipoOcorrencia=${tipoOcorrencia}&idResponsavelOperacional=${responsavelOperacional}&idTipoSite=${tipoSite}&idSeguimento=${seguimento}&primeiraData=${data1Formatada}&segundaData=${data2Formatada}&numeroOcorrencia=${numeroOcorrencia}`);
+        }
+
+        function verificarPeriodo(primeiraData, segundaData){
+            // Verifica se o período de datas é maior que 7 dias
+            if (!primeiraData || !segundaData) return false;
+            const fD = new Date(primeiraData).getTime();
+            const sD = new Date(segundaData).getTime();
+            let difference = sD - fD;
+            let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+            return (totalDays > 7);
+        }
+
+        function exportar() {
+
+
+            let status = $("#status").val() == "Selecione..." ? 0 : $("#status").val();
+            let cmc = $("#cmc").val() == "Selecione..." ? 0 : $("#cmc").val();
+            let inbox = $("#inbox").val() == "Selecione..." ? 0 : $("#inbox").val();
+            let tipoOcorrencia = $("#tipoOcorrencia").val() == "Selecione..." ? 0 : $("#tipoOcorrencia").val();
+            let responsavelOperacional = $("#responsavelOperacional").val() == "Selecione..." ? 0 : $("#responsavelOperacional").val();
+            let tipoSite = $("#tipoSite").val() == "Selecione..." ? 0 : $("#tipoSite").val();
+            let seguimento = $("#seguimento").val() == "Selecione..." ? 0 : $("#seguimento").val();
+            let primeiraData = $("#primeiraData").val() == undefined ? "" : $("#primeiraData").val();
+            let segundaData = $("#segundaData").val() == undefined ? "" : $("#segundaData").val();
+            let numeroOcorrencia = $("#numeroOcorrencia").val();
+
+            console.log("status: " + status)
+
+            let data1Formatada = 0;
+            let data2Formatada = 0;
+            if (data1Formatada == "" || data2Formatada == "") {
+                data1Formatada = 0;
+                data2Formatada = 0;
+            } else {
+                let data1 = new Date(primeiraData);
+                data1Formatada = data1.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+
+                let data2 = new Date(segundaData);
+                data2Formatada = data2.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ExportFile")',
+                data: { "idStatus": status },
+                success: function () {
+                    console.log('teste')
+                    "SUCESSo"
+                },
+                error: function () {
+                    console.log("ERROOO")
+                }
+            });
+
+        }
+
+        function selecionarModeloRelatorio(){
+
+            let idModeloRelatorio = $("#selectModeloRelatorio").val();
+
+            //#region IdCheckBox
+            let checkId = $('#checkId');
+            let checkAcionadoProntoAtendimento = $('#checkAcionadoProntoAtendimento');
+            let checkAlarmeRealAcidental = $('#checkAlarmeRealAcidental');
+            let checkAmbiente = $('#checkAmbiente');
+            let checkAnaliseConclusao = $('#checkAnaliseConclusao');
+            let checkAreaInterna = $('#checkAreaInterna');
+            let checkAreaSaude = $('#checkAreaSaude');
+            let checkAreaTratamento = $('#checkAreaTratamento');
+            let checkAtendeuSLA = $('#checkAtendeuSLA');
+            let checkBombeiroCivil = $('#checkBombeiroCivil');
+            let checkCargoFuncao = $('#checkCargoFuncao');
+            let checkCep = $('#checkCep');
+            let checkCmc = $('#checkCmc');
+            let checkCodigoSinistro = $('#checkCodigoSinistro');
+            let checkConclusao = $('#checkConclusao');
+            let checkCondutor = $('#checkCondutor');
+            let checkDataConclusao = $('#checkDataConclusao');
+            let checkDataConclusaoChamado = $('#checkDataConclusaoChamado');
+            let checkDataOcorrencia = $('#checkDataOcorrencia');
+            let checkDataReagendamentoSis = $('#checkDataReagendamentoSis');
+            let checkDataRegistro = $('#checkDataRegistro');
+            let checkDetentora = $('#checkDetentora');
+            let checkDiasConclusao = $('#checkDiasConclusao');
+            let checkEmpresa = $('#checkEmpresa');
+            let checkEndereco = $('#checkEndereco');
+            let checkEventoERB = $('#checkEventoERB');
+            let checkHistorico = $('#checkHistorico');
+            let checkInbox = $('#checkInbox');
+            let checkinformacaoComplementar = $('#checkinformacaoComplementar');
+            let checkLocal = $('#checkLocal');
+            let checkManutencao = $('#checkManutencao');
+            let checkMunicipio = $('#checkMunicipio');
+            let checkNomeSite = $('#checkNomeSite');
+            let checkPlaca = $('#checkPlaca');
+            let checkQualificacao = $('#checkQualificacao');
+            let checkResponsavelOperacional = $('#checkResponsavelOperacional');
+            let checkSeguimento = $('#checkSeguimento');
+            let checkSistemaFechaduraBluetooth = $('#checkSistemaFechaduraBluetooth');
+            let checkSistemaRastreamento = $('#checkSistemaRastreamento');
+            let checkStatus = $('#checkStatus');
+            let checkTipoAlarme = $('#checkTipoAlarme');
+            let checkTipoSite = $('#checkTipoSite');
+            let checkTipoOcorrencia = $('#checkTipoOcorrencia');
+            let checkTransportadora = $('#checkTransportadora');
+            let checkObservacao = $('#checkObservacao');
+            let checkEstado = $('#checkEstado');
+            let checkUsuarioAlteracaoOcorrencia = $('#checkUsuarioAlteracaoOcorrencia');
+            //#endregion
+
+            
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SelecionarModeloRelatorio")',
+                data: { "idModeloRelatorio": idModeloRelatorio },
+                success: function (data) {
+                    console.log(data);
+
+                    data.numeroRov == true ? checkId.prop('checked', true) : checkId.prop('checked', false)
+                    data.acionadoProntoAtendimento == true ? checkAcionadoProntoAtendimento.prop('checked', true) : checkAcionadoProntoAtendimento.prop('checked', false)
+                    data.alarmeRealAcidental == true ? checkAlarmeRealAcidental.prop('checked', true) : checkAlarmeRealAcidental.prop('checked', false)
+                    data.ambiente == true ? checkAmbiente.prop('checked', true) : checkAmbiente.prop('checked', false)
+                    data.analiseConclusao == true ? checkAnaliseConclusao.prop('checked', true) : checkAnaliseConclusao.prop('checked', false)
+                    data.areaInterna == true ? checkAreaInterna.prop('checked', true) : checkAreaInterna.prop('checked', false)
+                    data.areaSaude == true ? checkAreaSaude.prop('checked', true) : checkAreaSaude.prop('checked', false)
+                    data.areaTratamento == true ? checkAreaTratamento.prop('checked', true) : checkAreaTratamento.prop('checked', false)
+                    data.atendeuSla == true ? checkAtendeuSLA.prop('checked', true) : checkAtendeuSLA.prop('checked', false)
+                    data.bombeiroCivil == true ? checkBombeiroCivil.prop('checked', true) : checkBombeiroCivil.prop('checked', false)
+                    data.cargoFuncao == true ? checkCargoFuncao.prop('checked', true) : checkCargoFuncao.prop('checked', false)
+                    data.cep == true ? checkCep.prop('checked', true) : checkCep.prop('checked', false)
+                    data.cmc == true ? checkCmc.prop('checked', true) : checkCmc.prop('checked', false)
+                    data.codigoSinistro == true ? checkCodigoSinistro.prop('checked', true) : checkCodigoSinistro.prop('checked', false)
+                    data.conclusao == true ? checkConclusao.prop('checked', true) : checkConclusao.prop('checked', false)
+                    data.condutor == true ? checkCondutor.prop('checked', true) : checkCondutor.prop('checked', false)
+                    data.dataConclusao == true ? checkDataConclusao.prop('checked', true) : checkDataConclusao.prop('checked', false)
+                    data.dataConclusaoChamado == true ? checkDataConclusaoChamado.prop('checked', true) : checkDataConclusaoChamado.prop('checked', false)
+                    data.dataOcorrencia == true ? checkDataOcorrencia.prop('checked', true) : checkDataOcorrencia.prop('checked', false)
+                    data.dataReagendamentoSis == true ? checkDataReagendamentoSis.prop('checked', true) : checkDataReagendamentoSis.prop('checked', false)
+                    data.dataRegistro == true ? checkDataRegistro.prop('checked', true) : checkDataRegistro.prop('checked', false)
+                    data.detentora == true ? checkDetentora.prop('checked', true) : checkDetentora.prop('checked', false)
+                    data.diasConclusao == true ? checkDiasConclusao.prop('checked', true) : checkDiasConclusao.prop('checked', false)
+                    data.empresa == true ? checkEmpresa.prop('checked', true) : checkEmpresa.prop('checked', false)
+                    data.endereco == true ? checkEndereco.prop('checked', true) : checkEndereco.prop('checked', false)
+                    data.eventoErb == true ? checkEventoERB.prop('checked', true) : checkEventoERB.prop('checked', false)
+                    data.historico == true ? checkHistorico.prop('checked', true) : checkHistorico.prop('checked', false)
+                    data.inbox == true ? checkInbox.prop('checked', true) : checkInbox.prop('checked', false)
+                    data.informacaoComplementar == true ? checkinformacaoComplementar.prop('checked', true) : checkinformacaoComplementar.prop('checked', false)
+                    data.local == true ? checkLocal.prop('checked', true) : checkLocal.prop('checked', false)
+                    data.manutencao == true ? checkManutencao.prop('checked', true) : checkManutencao.prop('checked', false)
+                    data.municipio == true ? checkMunicipio.prop('checked', true) : checkMunicipio.prop('checked', false)
+                    data.nomeSite == true ? checkNomeSite.prop('checked', true) : checkNomeSite.prop('checked', false)
+                    data.placa == true ? checkPlaca.prop('checked', true) : checkPlaca.prop('checked', false)
+                    data.qualificacao == true ? checkQualificacao.prop('checked', true) : checkQualificacao.prop('checked', false)
+                    data.responsavelOperacional == true ? checkResponsavelOperacional.prop('checked', true) : checkResponsavelOperacional.prop('checked', false)
+                    data.seguimento == true ? checkSeguimento.prop('checked', true) : checkSeguimento.prop('checked', false)
+                    data.sistemaFechaduraBluetooth == true ? checkSistemaFechaduraBluetooth.prop('checked', true) : checkSistemaFechaduraBluetooth.prop('checked', false)
+                    data.sistemaRastreamento == true ? checkSistemaRastreamento.prop('checked', true) : checkSistemaRastreamento.prop('checked', false)
+                    data.status == true ? checkStatus.prop('checked', true) : checkStatus.prop('checked', false)
+                    data.tipoAlarme == true ? checkTipoAlarme.prop('checked', true) : checkTipoAlarme.prop('checked', false)
+                    data.tipoSite == true ? checkTipoSite.prop('checked', true) : checkTipoSite.prop('checked', false)
+                    data.tipoOcorrencia == true ? checkTipoOcorrencia.prop('checked', true) : checkTipoOcorrencia.prop('checked', false)
+                    data.transportadora == true ? checkTransportadora.prop('checked', true) : checkTransportadora.prop('checked', false)
+                    data.observacao == true ? checkObservacao.prop('checked', true) : checkObservacao.prop('checked', false)
+                    data.uf == true ? checkEstado.prop('checked', true) : checkEstado.prop('checked', false)
+                    data.usuarioAlteracaoOcorrencia == true ? checkUsuarioAlteracaoOcorrencia.prop('checked', true) : checkUsuarioAlteracaoOcorrencia.prop('checked', false)
+
+                    //verificar o campo dataconclusaosis
+                    //verificar o campo emSeguimento
+
+
+                },
+                error: function () {
+                    console.log("ERROOO")
+                }
+            });
+
+        }
+
+        function acionarModeloRelatorio(){
+            $("#modeloRelatorioAtivo").prop('checked', true);
+        }
+        
+        function desativarModeloRelatorio(){
+            $("#modeloRelatorioAtivo").prop('checked', false);
+        }
+
+        function selectAll(){
+            const checked = $('#checkSelecionarTodos').prop('checked');            
+            const cks = $('#divCheckCampos input[type=checkbox]');
+            for (let cb of cks){
+                $(cb).prop('checked', checked);
+            };            
+        }
+    </script>
+ }

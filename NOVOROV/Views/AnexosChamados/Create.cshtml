@@ -1,0 +1,66 @@
+﻿@model NOVOROV.Models.AnexosChamado
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Chamados")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<h4>Adicionar Anexo Chamado</h4>
+<hr />
+
+<form asp-action="Create" asp-route-chamadoId="@ViewBag.ChamadoId" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Produto" class="control-label"></label>
+                <input asp-for="Produto" class="form-control" />
+                <span asp-validation-for="Produto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Quantidade" class="control-label"></label>
+                <input asp-for="Quantidade" class="form-control" />
+                <span asp-validation-for="Quantidade" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+         <div class="col">
+              <div class="form-group">
+                   <label asp-for="Comentario" class="control-label"></label>
+                   <input asp-for="Comentario" class="form-control" />
+                   <span asp-validation-for="Comentario" class="text-danger"></span>
+              </div>
+         </div>
+         <div class="col">
+              <div class="form-group">
+                   <label class="control-label">Anexar o documento:</label>
+                   <input type="file" name="postedFile" class="form-control" />
+              </div>
+         </div>
+    </div>
+
+    <div>
+        <button type="submit" style="float: right" class="bttn bttn-md bttn-unite bttn-primary mb-3">Gravar</button>
+    </div>
+</form>
+
+
+

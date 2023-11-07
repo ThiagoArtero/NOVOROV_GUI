@@ -1,0 +1,71 @@
+﻿@model NOVOROV.Models.Perda
+
+@{
+    ViewData["Title"] = "Cadastro de Perdas";
+}
+
+
+<div>
+    <button onclick="location.href='@Url.Action("Edit", "Ocorrencias", new { id = ViewBag.OcorrenciaId })'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<h4>Cadastro de Perdas VIVO</h4>
+
+<hr />
+
+<form asp-action="Create" asp-route-ocorrenciaId="@ViewBag.OcorrenciaId">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoEquipamentoId" class="control-label"></label>
+                <select asp-for="TipoEquipamentoId" class="form-control" asp-items="ViewBag.TipoEquipamentoId"></select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="CodigoSinistro" class="control-label"></label>
+                <input asp-for="CodigoSinistro" class="form-control" />
+                <span asp-validation-for="CodigoSinistro" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="QuantidadePerda" class="control-label"></label>
+                <input asp-for="QuantidadePerda" class="form-control" />
+                <span asp-validation-for="QuantidadePerda" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ValorPerda" class="control-label"></label>
+            <input asp-for="ValorPerda" class="form-control" />
+            <span asp-validation-for="ValorPerda" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="ValorEfetivamenteRecuperado" class="control-label"></label>
+                <input asp-for="ValorEfetivamenteRecuperado" class="form-control" />
+                <span asp-validation-for="ValorEfetivamenteRecuperado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="ValorPerdaEvitada" class="control-label"></label>
+                <input asp-for="ValorPerdaEvitada" class="form-control" />
+                <span asp-validation-for="ValorPerdaEvitada" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+    </div>
+</form>
+

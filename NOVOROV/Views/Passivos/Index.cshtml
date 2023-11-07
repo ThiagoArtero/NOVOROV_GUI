@@ -1,0 +1,58 @@
+﻿@model IEnumerable<NOVOROV.Models.Passivo>
+
+@{
+    ViewData["Title"] = "Passivos";
+}
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPassivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorRecuperadoPassivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoRessarcimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaInterna)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empresa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPassivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorRecuperadoPassivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoRessarcimento.NomeTipoRessarcimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaInterna.NomeAreaInterna)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empresa.NomeEmpresa)
+                </td>
+                <td>
+                    <a class="btn btn-icon text-primary" asp-controller="Passivos" asp-action="Edit" asp-route-id="@item.Id" asp-route-perdaId="@item.PerdaId">
+                        <i class="fa fa-file-signature"></i>
+                    </a>
+                    <a class="btn btn-icon text-danger" asp-controller="Passivos" asp-action="Delete" asp-route-id="@item.Id" asp-route-perdaId="@item.PerdaId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

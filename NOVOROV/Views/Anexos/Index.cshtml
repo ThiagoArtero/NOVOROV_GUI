@@ -1,0 +1,64 @@
+﻿@model IEnumerable<NOVOROV.Models.Anexo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeAnexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataAnexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoAnexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoAnexo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeAnexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataAnexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor.NomeUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoAnexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoAnexo.NomeTipoAnexo)
+            </td>
+                <td class="d-flex justify-content-between align-content-center">
+                    @using (Html.BeginForm("DownloadFile", "Anexos", FormMethod.Post))
+                    {
+                        <input type="hidden" name="FileId" value="@item.Id" multiple />
+                        <button class="btn btn-icon text-success" type="submit">
+                            <i class="fa fa-file-download"></i>
+                        </button>
+                    }
+                    <a class="btn btn-icon text-primary" asp-controller="Anexos" asp-action="Edit" asp-route-id="@item.Id" asp-route-ocorrenciaId="@item.OcorrenciaId">
+                        <i class="fa fa-file-signature"></i>
+                    </a>
+                    <a class="btn btn-icon text-danger" asp-controller="Anexos" asp-action="Delete" asp-route-id="@item.Id" asp-route-ocorrenciaId="@item.OcorrenciaId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

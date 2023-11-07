@@ -1,0 +1,34 @@
+﻿@model NOVOROV.Models.PerfilFuncionalidade
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Editando perfil funcionalidade @Model.Id</h4>
+<a asp-action="Index">Voltar</a>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FuncionalidadeId" class="control-label"></label>
+                <select asp-for="FuncionalidadeId" class="form-control" asp-items="ViewBag.FuncionalidadeId"></select>
+                <span asp-validation-for="FuncionalidadeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PerfilId" class="control-label"></label>
+                <select asp-for="PerfilId" class="form-control" asp-items="ViewBag.PerfilId"></select>
+                <span asp-validation-for="PerfilId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

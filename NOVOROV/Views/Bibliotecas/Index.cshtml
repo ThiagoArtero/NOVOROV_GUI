@@ -1,0 +1,116 @@
+﻿@model IEnumerable<NOVOROV.Models.Biblioteca>
+
+@{
+    ViewData["Title"] = "Bibliotecas";
+
+    <head>
+        <link rel="stylesheet" href="~/css/jquery.datatables.min.css" />
+        <link rel="stylesheet" href="~/css/Filter.css" />
+    </head>
+
+    <style>
+        /*table.dataTable.no-footer {
+                                border: 1px solid #dee2e6 !important;
+                            }*/
+
+        .styled-table tbody {
+            //background-color: var(--primary);
+        }
+
+        .my-trs tr {
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+            .my-trs tr td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .my-trs tr:hover {
+                color: var(--primary);
+                transform: translateX(13px);
+            }
+    </style>
+}
+
+<h4>Biblioteca</h4>
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<p>
+    <a asp-action="Create">Nova Biblioteca</a>
+</p>
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                Tipo Biblioteca
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoAnexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnalistaSolicitanteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataAtualizacao)
+            </th>
+            <th></th>
+        </tr>
+    <tbody class="my-trs">
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.TipoBiblioteca.NomeTipoBiblioteca)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.DescricaoAnexo)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.UF)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.AnalistaSolicitante.NomeUsuario)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.DataAtualizacao)
+                </td>
+               
+                <td class="d-flex justify-content-between align-content-center">
+                        @using (Html.BeginForm("DownloadFile", "Bibliotecas", FormMethod.Post))
+                        {
+                        <input type="hidden" name="FileId" value="@item.Id" multiple />
+                        <button class="btn btn-icon text-success" type="submit">
+                            <i class="fa fa-file-download"></i>
+                        </button>
+                        }
+
+                    <a class="btn btn-icon text-primary" asp-controller="Bibliotecas" asp-action="Edit" asp-route-id="@item.Id" >
+                        <i class="fa fa-file-signature"></i>
+                    </a>
+                    <a class="btn btn-icon text-danger" asp-controller="Bibliotecas" asp-action="Delete" asp-route-id="@item.Id" >
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>

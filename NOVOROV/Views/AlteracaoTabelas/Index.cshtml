@@ -1,0 +1,518 @@
+﻿@model NOVOROV.ViewModels.AlteracaoTabelaViewModel
+@{
+    ViewData["Title"] = "Manutenção de Tabelas";
+}
+
+<h4>Manutenção de Tabelas</h4>
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Ação Tomada
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Nova ação tomada</h5>
+                <form asp-action="CreateAcaoTomada" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalAcaoTomada" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalAcaoTomada" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ação Tomada</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.AcaoTomada)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeAcaoTomada</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <di class="card">
+            <div class="card-header">
+                Acion. Pronto Atendimento
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Pronto atendimento </h5>
+                <form asp-action="CreateAcionadoProntoAtendimento" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalAcionadoProntoAtendimento" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalAcionadoProntoAtendimento" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Acion. pronto atendimento</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.AcionadoProntoAtendimento)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeAcionadoProntoAtendimento</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </di>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Tipo Ressarcimento
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Novo ressarcimento</h5>
+                <form asp-action="CreateTipoRessarcimento" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalTipoRessarcimento" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalTipoRessarcimento" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tipo Ressarcimento</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                @foreach (var item in Model.TipoRessarcimento)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeTipoRessarcimento</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <di class="card">
+            <div class="card-header">
+                Analise Conclusão
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Nova analise conclusão</h5>
+                <form asp-action="CreateAnaliseConclusao" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalAnaliseConclusao" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalAnaliseConclusao" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Analise de Conclusão</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.AnaliseConclusao)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeAnaliseConclusao</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </di>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Alarme real Acidente
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Novo alarme</h5>
+                <form asp-action="CreateAlarmeRealAcidente" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalAlarmeRealAcidente" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalAlarmeRealAcidente" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Alarme real acidente</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.AlarmeRealAcidente)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeAlarmeRealAcidente</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+               Detentora
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Novo detentora</h5>
+                <form asp-action="CreateDetentora" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalDetentora" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalDetentora" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Detentora</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.Detentora)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeDetentora</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <di class="card">
+            <div class="card-header">
+                Empresa
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Nova empresa</h5>
+                <form asp-action="CreateAnaliseConclusao" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalEmpresa" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalEmpresa" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Empresa</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.Empresa)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeEmpresa</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </di>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                EventoERB
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Novo evento ERB</h5>
+                <form asp-action="CreateEventoERB" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalEventoERB" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalEventoERB" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Alarme real acidente</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.EventoERB)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeEventoERB</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Gestão Perda
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Novo gestao perda</h5>
+                <form asp-action="CreateGestaoPerda" asp-controller="AlteracaoTabelas">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" name="itemName" placeholder="digite o nome..." />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                        <a class="btn btn-outline-primary mt-2" data-toggle="modal" href="#modalGestaoPerda" role="button" aria-expanded="false">
+                            Visualizar Itens
+                        </a>
+                    </div>
+                </form>
+                <div class="modal fade" id="modalGestaoPerda" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Gestão perda</h5>
+                                <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.GestaoPerda)
+                                {
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="card-title">@item.NomeGestaoPerda</h6>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tablename="@item.GetType().Name" class="card-link">
+                                                    <i class="fa fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

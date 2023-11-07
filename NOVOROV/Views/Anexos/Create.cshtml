@@ -1,0 +1,45 @@
+﻿@model NOVOROV.Models.Anexo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Adicionar Anexo</h4>
+<hr />
+
+<form asp-action="Create" asp-route-ocorrenciaId="@ViewBag.OcorrenciaId" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="DescricaoAnexo" class="control-label"></label>
+                <input asp-for="DescricaoAnexo" class="form-control" />
+                <span asp-validation-for="DescricaoAnexo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoAnexoId" class="control-label"></label>
+                <select asp-for="TipoAnexoId" class="form-control" asp-items="ViewBag.TipoAnexoId"></select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="control-label">Anexar o documento:</label>
+                <input type="file" name="postedFile" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <input type="submit" value="Gravar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+

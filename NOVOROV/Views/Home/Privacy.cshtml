@@ -1,0 +1,20 @@
+﻿@model NOVOROV.Models.ApiResponse
+
+@{
+    ViewData["Title"] = "Teste API";
+}
+
+@if (Model != null && Model.Dados.Count > 0)
+{
+    @foreach (var item in Model.Dados)
+    {
+        <p>Sig: @item.SiglaSite</p>
+        <p>Log: @item.Logradouro</p>
+        <p>Mun: @item.Municipio</p>
+        <p>Uf: @item.UF</p>
+        <p>CEP: @item.CEP</p>
+        <p>InType: @item.TipoIncidente</p>
+        <p>SiTy: @item.TipoSite</p>
+        <p>ItNa: @item.ItemName</p>
+    }
+}

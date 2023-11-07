@@ -1,0 +1,225 @@
+﻿@model NOVOROV.ViewModels.ChamadoAndAtendimento
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Chamados")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<h4>Chamado # @Model.Chamado.Id</h4>
+<hr />
+
+<form asp-action="Edit">
+    <div class="col">
+        @if(Model.Chamado.StatusChamadoId == 11)
+        {
+            <p>Abertura: @Model.Chamado.DataAbertura<span class="badge badge-danger ml-3">@Model.Chamado.StatusChamado?.NomeStatusChamado</span></p>
+        }
+        else
+        {
+            <p>Abertura: @Model.Chamado.DataAbertura<span class="badge badge-success ml-3">@Model.Chamado.StatusChamado?.NomeStatusChamado</span></p>
+        }
+        
+            <p>Loja: @Model.Chamado.loja    @Model.Chamado.UF</p>
+        <p>Responsável: @Model.Chamado.ResponsavelTrativa  -  @Model.Chamado.EmailResponsavelTratativa</p>
+    </div>
+
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Chamado.Id" hidden />
+    <div class="row" hidden>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Chamado.DataAbertura" class="control-label"></label>
+                <input asp-for="Chamado.DataAbertura" class="form-control" readonly />
+                <span asp-validation-for="Chamado.DataAbertura" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Chamado.StatusChamadoId" class="control-label"></label>
+                <select asp-for="Chamado.StatusChamadoId" class="form-control" asp-items="ViewBag.StatusChamadoId" readonly>
+                </select>
+                <span asp-validation-for="Chamado.StatusChamadoId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <nav>
+        <div class="nav nav-tabs mb-2" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-solicitacao-tab" data-toggle="tab" href="#nav-solicitacao" role="tab" aria-controls="nav-solicitacao" aria-selected="true">Solicitação</a>
+            <a class="nav-item nav-link" id="nav-atendimento-tab" data-toggle="tab" href="#nav-atendimento" role="tab" aria-controls="nav-atendimento" aria-selected="false">Atendimento</a>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+
+        <div class="tab-pane fade show active" id="nav-solicitacao" role="tabpanel" aria-labelledby="nav-solicitacao-tab">
+
+            <div class="row mb-3">
+                <input asp-for="Chamado.UsuarioOperadorId" hidden />
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Usuário Operador</label>
+                        <input class="form-control" value="@TempData["NomeUsuario"]" readonly />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.SolicitanteId" class="control-label"></label>
+                        <select asp-for="Chamado.SolicitanteId" class="form-control" asp-items="ViewBag.SolicitanteId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col" hidden>
+                    <div class="form-group">
+                        <label asp-for="Chamado.DataAbertura" class="control-label"></label>
+                        <input asp-for="Chamado.DataAbertura" class="form-control" readonly />
+                        <span asp-validation-for="Chamado.DataAbertura" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.EmailSolicitante" class="control-label"></label>
+                        <input asp-for="Chamado.EmailSolicitante" class="form-control" />
+                        <span asp-validation-for="Chamado.EmailSolicitante" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.UF" class="control-label"></label>
+                        <input asp-for="Chamado.UF" class="form-control" />
+                        <span asp-validation-for="Chamado.UF" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.loja" class="control-label"></label>
+                        <input asp-for="Chamado.loja" class="form-control" />
+                        <span asp-validation-for="Chamado.loja" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.EmailResponsavelTratativa" class="control-label"></label>
+                        <input asp-for="Chamado.EmailResponsavelTratativa" class="form-control" />
+                        <span asp-validation-for="Chamado.EmailResponsavelTratativa" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.ResponsavelTrativa" class="control-label"></label>
+                        <input asp-for="Chamado.ResponsavelTrativa" class="form-control" />
+                        <span asp-validation-for="Chamado.ResponsavelTrativa" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.ContatoResponsavel" class="control-label"></label>
+                        <input asp-for="Chamado.ContatoResponsavel" class="form-control" />
+                        <span asp-validation-for="Chamado.ContatoResponsavel" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.DataEncerramento" class="control-label"></label>
+                        <input asp-for="Chamado.DataEncerramento" class="form-control" />
+                        <span asp-validation-for="Chamado.DataEncerramento" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Chamado.Solicitacao" class="control-label"></label>
+                        <textarea asp-for="Chamado.Solicitacao" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Chamado.Solicitacao" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="bttn bttn-md bttn-unite bttn-primary mb-1 mt-2">Gravar</button>
+
+            <div class="my-3">
+                <button type="button" class="bttn bttn-md bttn-unite bttn-primary mb-3" onclick="location.href='@(Url.Action("Create", "AnexosChamados", new { ChamadoId = Model.Chamado.Id }))'">
+                    <i class="fas fa-file-import"></i>
+                    Adicionar item
+                </button>
+
+                @if (Model.Chamado.AnexoChamado != null && Model.Chamado.AnexoChamado.Count > 0)
+                {
+                    await Html.RenderPartialAsync("~/Views/AnexosChamados/Index.cshtml", Model.Chamado.AnexoChamado);
+                }
+            </div>
+
+        </div>
+</form>
+
+
+
+<div class="tab-pane fade" id="nav-atendimento" role="tabpanel" aria-labelledby="nav-atendimento-tab">
+    <form asp-action="AdicionarResposta" enctype="multipart/form-data">
+        <input asp-for="Chamado.Id" hidden name="chamadoId" />
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Atendimento.Resposta" class="control-label"></label>
+                    <textarea asp-for="Atendimento.Resposta" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Atendimento.Resposta" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Chamado.StatusChamadoId" class="control-label">Status Chamado</label>
+                    <select asp-for="Chamado.StatusChamadoId" class="form-control" asp-items="ViewBag.StatusChamadoId" id="StatusAtendimentoChamadoId" name="statusChamadoId">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Anexar o documento:</label>
+                    <input type="file" name="postedFile" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+
+            </div>
+        </div>
+        <button type="submit" class="bttn bttn-md bttn-unite bttn-primary mb-1 mt-2">Gravar Resposta</button>
+
+    </form>
+
+
+    @if (Model.Chamado.Atendimento != null && Model.Chamado.Atendimento.Count > 0)
+    {
+
+        await Html.RenderPartialAsync("~/Views/Atendimentos/Index.cshtml", Model.Chamado.Atendimento);
+
+    }
+    else
+    {
+        <p>Nenhuma resposta cadastrada!</p>
+    }
+
+</div>
+
+    </div>
+
+
+
+
+
+

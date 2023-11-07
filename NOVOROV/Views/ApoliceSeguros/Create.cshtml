@@ -1,0 +1,305 @@
+﻿@model NOVOROV.Models.ApoliceSeguro
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<hr />
+
+<h4>Criar Apolice Seguro</h4>
+
+<form asp-action="Create">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoSiteId" class="control-label">Tipo site</label>
+                <select asp-for="TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="ddlTipoSite">
+                    <option>Selecionar novo site</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoApoliceSeguroId" class="control-label">Tipo Apólice Seguro</label>
+                <select asp-for="TipoApoliceSeguroId" class="form-control" asp-items="ViewBag.TipoApoliceSeguroId" id="idTipoApoliceSeguro">
+                    <option>Selecionar tipo apolice</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="ValorApoliceSeguro" class="control-label">Valor apolice seguro</label>
+                <input asp-for="ValorApoliceSeguro" class="form-control" id="valorApoliceSeguro" />
+                <span asp-validation-for="ValorApoliceSeguro" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DescricaoApoliceSeguro" class="control-label">Descricao apolice seguro</label>
+        <textarea asp-for="DescricaoApoliceSeguro" class="form-control" rows="4" id="valorDescricaoApoliceSeguro"></textarea>
+        <span asp-validation-for="DescricaoApoliceSeguro" class="text-danger"></span>
+    </div>
+
+    <hr/>
+    <h4>Tipo ocorrência</h4>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="checkACD">
+                <label class="form-check-label" for="flexCheckDefault">
+                    ACD
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="checkACI">
+                <label class="form-check-label" for="flexCheckChecked">
+                    ACI
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="3" id="checkDES">
+                <label class="form-check-label" for="flexCheckChecked">
+                    DES
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="4" id="checkDPD">
+                <label class="form-check-label" for="flexCheckChecked">
+                    DPD
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="5" id="checkEME">
+                <label class="form-check-label" for="flexCheckChecked">
+                    EME
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="6" id="checkEST">
+                <label class="form-check-label" for="flexCheckChecked">
+                    EST
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="7" id="checkFEX">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FEX
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="8" id="checkFRA">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FRA
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="9" id="checkFRT">
+                <label class="form-check-label" for="flexCheckChecked">
+                    FRT
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10" id="checkINC">
+                <label class="form-check-label" for="flexCheckChecked">
+                    INC
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class=" col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="11" id="checkMEQ">
+                <label class="form-check-label" for="flexCheckChecked">
+                    MEQ
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="12" id="checkMSS">
+                <label class="form-check-label" for="flexCheckChecked">
+                    MSS
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="13" id="checkNCI">
+                <label class="form-check-label" for="flexCheckChecked">
+                    NCI
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="14" id="checkNPC">
+                <label class="form-check-label" for="flexCheckChecked">
+                    NPC
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="15" id="checkOutros">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Outros
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="16" id="checkPEV">
+                <label class="form-check-label" for="flexCheckChecked">
+                    PEV
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="17" id="checkRBO">
+                <label class="form-check-label" for="flexCheckChecked">
+                    RBO
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="18" id="checkREX">
+                <label class="form-check-label" for="flexCheckChecked">
+                    REX
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="19" id="checkSAB">
+                <label class="form-check-label" for="flexCheckChecked">
+                    SAB
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="20" id="checkSIS">
+                <label class="form-check-label" for="flexCheckChecked">
+                    SIS
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button id="botaoAdicionar" onclick="adicionarApoliceSeguro()" class="btn btn-primary">
+            Adicionar
+        </button>
+    </div>
+</form>
+@section Scripts{
+    <script>
+        function adicionarApoliceSeguro() {
+
+            console.log("teste");
+
+            var idDdlTipoSite = $("#ddlTipoSite").val()
+            var idTipoApoliceSeguro = $("#idTipoApoliceSeguro").val()
+            var valorApoliceSeguro = $("#valorApoliceSeguro").val()
+            var valorDescricaoApoliceSeguro = $("#valorDescricaoApoliceSeguro").val()
+
+            // #region Tags
+            var checkACD = document.getElementById("checkACD");
+            var checkACI = document.getElementById("checkACI");
+            var checkDES = document.getElementById("checkDES");
+            var checkDPD = document.getElementById("checkDPD");
+            var checkEME = document.getElementById("checkEME");
+            var checkEST = document.getElementById("checkEST");
+            var checkFEX = document.getElementById("checkFEX");
+            var checkFRA = document.getElementById("checkFRA");
+            var checkFRT = document.getElementById("checkFRT");
+            var checkINC = document.getElementById("checkINC");
+            var checkMEQ = document.getElementById("checkMEQ");
+            var checkMSS = document.getElementById("checkMSS");
+            var checkNCI = document.getElementById("checkNCI");
+            var checkNPC = document.getElementById("checkNPC");
+            var checkOutros = document.getElementById("checkOutros");
+            var checkPEV = document.getElementById("checkPEV");
+            var checkRBO = document.getElementById("checkRBO");
+            var checkREX = document.getElementById("checkREX");
+            var checkSAB = document.getElementById("checkSAB");
+            var checkSIS = document.getElementById("checkSIS");
+
+            // #endregion
+
+            var arrayTipoOcorrencia = [checkACD, checkACI, checkDES, checkDPD, checkEME, checkEST, checkFEX,
+                checkFRA, checkFRT, checkINC, checkMEQ, checkMSS, checkNCI, checkNPC, checkOutros,
+                checkPEV, checkRBO, checkREX, checkSAB, checkSIS];
+
+            var arrayTiposAdicionados = [];
+
+            var arrayTiposUnchecked = []
+
+            for (let i = 0; i < arrayTipoOcorrencia.length; i++) {
+
+                if (arrayTipoOcorrencia[i].checked) {
+                    arrayTiposAdicionados.push(arrayTipoOcorrencia[i].value);
+                }
+            }
+
+            for (let i = 0; i < arrayTiposAdicionados.length; i++) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("CreateApoliceSeguros")",
+                    dataType: "json",
+                    data: {idTipoSite: idDdlTipoSite,idTipoApoliceSeguro: idTipoApoliceSeguro,valorApoliceSeguro: valorApoliceSeguro,valorDescricaoApoliceSeguro: valorDescricaoApoliceSeguro,idTipoOcorrencia: arrayTiposAdicionados[i]},
+
+                    success: function (data) {
+                        console.log(data)
+
+                    },
+                    error: function (req, status, error) {
+                        console.log(error)
+
+                    }
+                })
+            }
+        }
+
+    </script>
+}
+

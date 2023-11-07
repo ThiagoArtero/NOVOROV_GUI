@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NOVOROV.Models.Aviso>
+
+
+@{
+    ViewData["Title"] = "Avisos";
+}
+
+<h4>Avisos</h4>
+
+<div>
+    <button onclick="location.href='@Url.Action("MenuFuncionalidade", "Funcionalidades")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<div class="mt-4">
+    <button onclick="location.href='@Url.Action("Create", "Avisos")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-plus"></i>
+        Criar novo aviso
+    </button>
+</div>
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    <span class="d-flex justify-content-between">
+                        <a class="m-1" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a class="m-1" asp-action="Details" asp-route-id="@item.Id">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a class="m-1 text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fa fa-trash-alt"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

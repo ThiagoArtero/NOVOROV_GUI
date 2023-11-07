@@ -1,0 +1,86 @@
+﻿@model NOVOROV.Models.Envolvido
+
+@{
+    ViewData["Title"] = "Adicionar Envolvido";
+}
+
+<h4>Adicionar Envolvido</h4>
+<hr />
+<form asp-action="Create" asp-route-ocorrenciaId="@ViewBag.OcorrenciaId" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <h4>Informações do Envolvido</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="NomeEnvolvido" class="control-label"></label>
+                <input asp-for="NomeEnvolvido" class="form-control" />
+                <span asp-validation-for="NomeEnvolvido" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="CPF" class="control-label"></label>
+                <input asp-for="CPF" class="form-control" />
+                <span asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="RG" class="control-label"></label>
+                <input asp-for="RG" class="form-control" />
+                <span asp-validation-for="RG" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="PlacaVeiculo" class="control-label"></label>
+                <input asp-for="PlacaVeiculo" class="form-control" />
+                <span asp-validation-for="PlacaVeiculo" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h4>Informações do Envolvimento</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoEnvolvimentoId" class="control-label"></label>
+                <select asp-for="TipoEnvolvimentoId" class="form-control" asp-items="ViewBag.TipoEnvolvimentoId">
+                    <option>Selecione...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="AcaoTomadaId" class="control-label"></label>
+                <select asp-for="AcaoTomadaId" class="form-control" asp-items="ViewBag.AcaoTomadaId">
+                    <option>Selecione...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Justificativa" class="control-label"></label>
+                <textarea asp-for="Justificativa" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Justificativa" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+    </div>
+</form>

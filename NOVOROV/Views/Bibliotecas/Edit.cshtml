@@ -1,0 +1,64 @@
+﻿@model NOVOROV.Models.Biblioteca
+
+@{
+    ViewData["Title"] = "Editar Biblioteca";
+}
+
+<h4>Editando Biblioteca @Model.NomeAnexo</h4>
+
+
+<div>
+<button onclick="location.href='@Url.Action("Index", "Bibliotecas")'" class="bttn-stretch bttn-md bttn-primary">
+    <i class="fas fa-long-arrow-alt-left"></i>
+    Voltar
+</button>
+</div>
+<hr />
+
+
+<form asp-action="Edit" enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="tab-content" id="nav-tabContent">
+
+        <div class="tab-pane fade show active" id="nav-dadosRegistro" role="tabpanel" aria-labelledby="nav-dadosRegistro-tab">
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="TipoBibliotecaId" class="control-label"></label>
+                        <select asp-for="TipoBibliotecaId" class="form-control" asp-items="ViewBag.TipoBibliotecaId"></select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="DescricaoAnexo" class="control-label"></label>
+                        <input asp-for="DescricaoAnexo" class="form-control" />
+                        <span asp-validation-for="DescricaoAnexo" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="UF" class="control-label"></label>
+                        <input asp-for="UF" class="form-control" />
+                        <span asp-validation-for="UF" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="control-label">Anexar o documento:</label>
+                            <input type="file" name="postedFile" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="bttn bttn-md bttn-unite bttn-primary">Gravar</button>
+        </div>
+    </div>
+</form>
+

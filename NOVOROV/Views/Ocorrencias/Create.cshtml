@@ -1,0 +1,778 @@
+﻿@model NOVOROV.ViewModels.OcorrenciaAndSiteViewModel
+
+@{
+    ViewData["Title"] = "Nova Ocorrencia";
+    string userRole = (string)Context.Items["UserRole"];
+    string userName = (string)Context.Items["UserName"];
+}
+
+<h4>Nova Ocorrência</h4>
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<nav>
+    <div class="nav nav-tabs mb-2" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-dadosRegistro-tab" data-toggle="tab" href="#nav-dadosRegistro" role="tab" aria-controls="nav-dadosRegistro" aria-selected="true">Dados do Registro</a>
+        @* <a class="nav-item nav-link" id="nav-acaoImediata-tab" data-toggle="tab" href="#nav-acaoImediata" role="tab" aria-controls="nav-acaoImediata" aria-selected="false">Ação Imediata</a>*@
+        @if (userRole == "Gestao Qualidade" || userRole == "Administrador")
+        {
+            
+            <a class="nav-item nav-link" id="nav-qualidade-tab" data-toggle="tab" href="#nav-qualidade" role="tab" aria-controls="nav-qualidade" aria-selected="false">Qualidade</a>
+        }
+        
+        <a class="nav-item nav-link" id="nav-averiguacao-tab" data-toggle="tab" href="#nav-averiguacao" role="tab" aria-controls="nav-averiguacao" aria-selected="false">Averiguação</a>
+    </div>
+</nav>
+
+
+@*<div class="col-md-4">*@
+
+<form asp-action="Create">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="tab-content" id="nav-tabContent">
+
+
+        <div class="tab-pane fade show active" id="nav-dadosRegistro" role="tabpanel" aria-labelledby="nav-dadosRegistro-tab">
+
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="from-group">
+                        <label asp-for="Ocorrencia.StatusId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.StatusId" class="form-control" asp-items="ViewBag.StatusId">
+                        </select>
+                    </div>
+                </div>
+                <div class="col" hidden>
+                    <div class="from-group">
+                        <label asp-for="Ocorrencia.CmcId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.CmcId" class="form-control" asp-items="ViewBag.CmcId" >
+                            <option value="@TempData["CmcId"]"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="from-group">
+                        <label class="control-label">Cmc</label>
+                        <input class="form-control" readonly value="@TempData["CmcUsuario"]" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                @if (userRole == "Gestao Qualidade" || userRole == "Operador")
+                {
+                    <div class="col">
+                        <div class="from-group">
+                            <label asp-for="Ocorrencia.InboxId" class="control-label"></label>
+                            <select asp-for="Ocorrencia.InboxId" class="form-control" asp-items="ViewBag.InboxId">
+                                <option>Selecione...</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+            <div class="row">
+                <div class="col" hidden>
+                    <div class="from-group">
+                        <label asp-for="Ocorrencia.UsuarioOperadorId" class="control-label"></label>
+                        <input asp-for="Ocorrencia.UsuarioOperadorId" class="form-control" readonly value="@TempData["MatriculaUsuario"]" />
+                        <span asp-validation-for="Ocorrencia.UsuarioOperadorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="from-group">
+                        <label class="control-label">Usuário Operador</label>
+                        <input class="form-control" readonly value="@TempData["NomeUsuario"]" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                @if (userRole == "Gestao Qualidade")
+                {
+                    <div class="col">
+                        <div class="from-group">
+                            <label asp-for="Ocorrencia.AreaTratamentoId" class="control-label"></label>
+                            <select asp-for="Ocorrencia.AreaTratamentoId" class="form-control" asp-items="ViewBag.AreaTratamentoId">
+                                <option>Selecione...</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Data Registro</label>
+                        <input class="form-control" value="@TempData["DataAtual"]" readonly />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.DataOcorrencia" class="control-label"></label>
+                        <input asp-for="Ocorrencia.DataOcorrencia" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.DataOcorrencia" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Ocorrencia.InformacaoOrigem" class="control-label"></label>
+                            <input asp-for="Ocorrencia.InformacaoOrigem" class="form-control" />
+                            <span asp-validation-for="Ocorrencia.InformacaoOrigem" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.CargoFuncao" class="control-label"></label>
+                        <input asp-for="Ocorrencia.CargoFuncao" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.CargoFuncao" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.TipoSiteId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="ddlTipoSite" onchange="pegaIdTipoSite(value), exibirDdlTransportadora(), tipoSiteTipoOcorrencia()">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.SiteId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.SiteId" class="form-control" id="nomeSite" onchange="pegaIdSite(value)">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style=" margin-top:2em;">
+                    <button type="button" class="bttn-unite bttn-sm  bttn-primary btnTeste" style="text-align:right" data-toggle="modal" data-target="#exampleModalCenter" data-value="">
+                        <i class="fas fa-file-import"></i>
+                        Adicionar novo site
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Estado" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Estado" class="form-control" id="estado" />
+                        <span asp-validation-for="Ocorrencia.Estado" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Municipio" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Municipio" class="form-control" id="municipio" />
+                        <span asp-validation-for="Ocorrencia.Municipio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.CEP" class="control-label"></label>
+                        <input asp-for="Ocorrencia.CEP" class="form-control" id="cep" />
+                        <span asp-validation-for="Ocorrencia.CEP" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Endereco" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Endereco" class="form-control" id="endereco" />
+                        <span asp-validation-for="Ocorrencia.Endereco" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.TipoOcorrenciaId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.TipoOcorrenciaId" class="form-control" onchange="exibirCamposTipoOcorrencia()" id="ddlTipoOcorrencia">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.QualificacaoId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.QualificacaoId" class="form-control" asp-items="ViewBag.QualificacaoId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.InformacaoComplementarId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.InformacaoComplementarId" class="form-control" asp-items="ViewBag.InformacaoComplementarId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.SistemaRastreamentoId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.SistemaRastreamentoId" class="form-control" asp-items="ViewBag.SistemaRastreamentoId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.SistemaFechaduraBluetoothId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.SistemaFechaduraBluetoothId" class="form-control" asp-items="ViewBag.SistemaFechaduraBluetoothId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.DetentoraId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.DetentoraId" class="form-control" asp-items="ViewBag.DetentoraId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.LocalId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.LocalId" class="form-control" asp-items="ViewBag.LocalId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Ambiente" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Ambiente" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.Ambiente" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" id="campoTransportadora">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.TransportadoraId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.TransportadoraId" class="form-control" asp-items="ViewBag.TransportadoraId" >
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.EventoERBId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.EventoERBId" class="form-control" asp-items="ViewBag.EventoERBId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.AlarmeRealAcidenteId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.AlarmeRealAcidenteId" class="form-control" asp-items="ViewBag.AlarmeRealAcidenteId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.TipoAlarme" class="control-label"></label>
+                        <input asp-for="Ocorrencia.TipoAlarme" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.TipoAlarme" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Historico" class="control-label"></label>
+                        <textarea asp-for="Ocorrencia.Historico" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Ocorrencia.Historico" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mb-3 mt-2">Ação Imediata</h4>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Ocorrencia.ResponsavelOperacionalId" class="control-label"></label>
+                    <select asp-for="Ocorrencia.ResponsavelOperacionalId" class="form-control" asp-items="ViewBag.ResponsavelAveriguacaoId">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.OrgaoPublicoId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.OrgaoPublicoId" class="form-control" asp-items="ViewBag.OrgaoPublicoId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.PlanoDeEmergenciaId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.PlanoDeEmergenciaId" class="form-control" asp-items="ViewBag.PlanoDeEmergenciaId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.BombeiroCivilId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.BombeiroCivilId" class="form-control" asp-items="ViewBag.BombeiroCivilId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.AreaInternaId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.AreaInternaId" class="form-control" asp-items="ViewBag.AreaInternaId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.AcionadoProntoAtendimentoId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.AcionadoProntoAtendimentoId" class="form-control" asp-items="ViewBag.AcionadoProntoAtendimentoId" onchange="exibirCamposAcionadoProntoAtendimento()" id="ddlAcionadoProntoAtendimento">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.DataAcionamentoProntoAtendimento" class="control-label"></label>
+                        <input asp-for="Ocorrencia.DataAcionamentoProntoAtendimento" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.DataAcionamentoProntoAtendimento" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.AreaSaudeId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.AreaSaudeId" class="form-control" asp-items="ViewBag.AreaSaudeId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col" id="campoPlaca">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Placa" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Placa" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.Placa" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col" id="campoCondutor">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Condutor" class="control-label"></label>
+                        <input asp-for="Ocorrencia.Condutor" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.Condutor" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col" id="campoEmpresa">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.EmpresaId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.EmpresaId" class="form-control" asp-items="ViewBag.EmpresaId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Tab Qualidade*@
+        <div class="tab-pane fade" id="nav-qualidade" role="tabpanel" aria-labelledby="nav-qualidade-tab">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.GestaoQualidadeId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.GestaoQualidadeId" class="form-control" asp-items="ViewBag.GestaoQualidadeId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.GestaoPerdaId" class="control-label"></label>
+                        <select asp-for="Ocorrencia.GestaoPerdaId" class="form-control" asp-items="ViewBag.GestaoPerdaId">
+                            <option>Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.Observacao" class="control-label"></label>
+                        <textarea asp-for="Ocorrencia.Observacao" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Ocorrencia.Observacao" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Tab Averiguação*@
+        <div class="tab-pane fade" id="nav-averiguacao" role="tabpanel" aria-labelledby="nav-averiguacao-tab">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.DataInicioAveriguacao" class="control-label"></label>
+                        <input asp-for="Ocorrencia.DataInicioAveriguacao" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.DataInicioAveriguacao" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Ocorrencia.DiasConclusao" class="control-label"></label>
+                        <input asp-for="Ocorrencia.DiasConclusao" class="form-control" />
+                        <span asp-validation-for="Ocorrencia.DiasConclusao" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Ocorrencia.DataConclusaoAveriguacao" class="control-label"></label>
+                    <input asp-for="Ocorrencia.DataConclusaoAveriguacao" class="form-control" />
+                    <span asp-validation-for="Ocorrencia.DataConclusaoAveriguacao" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Ocorrencia.ResponsavelAveriguacao" class="control-label"></label>
+                    <select asp-for="Ocorrencia.ResponsavelAveriguacao" class="form-control" asp-items="ViewBag.ResponsavelAveriguacaoId">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Ocorrencia.ConclusaoAveriguacao" class="control-label"></label>
+                    <textarea asp-for="Ocorrencia.ConclusaoAveriguacao" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Ocorrencia.ConclusaoAveriguacao" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="bttn bttn-md bttn-unite bttn-primary mb-3">Gravar</button>
+</form>
+
+<!-- Modal Adicionar Site -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Novo Site</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div id="conteudoModal">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.TipoSiteId" class="control-label"></label>
+                                <select asp-for="Site.TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="siteTipoSite"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.NomeSite" class="control-label"></label>
+                                <input asp-for="Site.NomeSite" class="form-control" id="siteNomeSite" />
+                                <span asp-validation-for="Site.NomeSite" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.UF" class="control-label">UF</label>
+                                <select asp-for="Site.UF" class="form-control input-validation-error" id="siteUF">
+                                    <option value="UF"></option>
+                                </select>
+                        </div>
+                        </div>
+                        <div class="col">
+                                <label asp-for="Site.Municipio" class="control-label">Município</label>
+                                <select asp-for="Site.Municipio" class="form-control input-validation-error" id="siteMunicipio">
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.Endereco" class="control-label"></label>
+                                <input asp-for="Site.Endereco" class="form-control" id="siteEndereco" />
+                                <span asp-validation-for="Site.Endereco" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.CEP" class="control-label"></label>
+                                <input asp-for="Site.CEP" class="form-control" id="siteCep" />
+                                <span asp-validation-for="Site.CEP" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.SistemaFechaduraBluetoothId" class="control-label"></label>
+                                <select asp-for="Site.SistemaFechaduraBluetoothId" class="form-control" id="siteSistemaBluetooth" asp-items="ViewBag.SistemaFechaduraBluetoothId"></select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.SistemaRastreamentoId" class="control-label"></label>
+                                <select asp-for="Site.SistemaRastreamentoId" class="form-control" id="siteSistemaRastreamento" asp-items="ViewBag.SistemaRastreamentoId"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Site.StatusSiteId" class="control-label"></label>
+                                <select asp-for="Site.StatusSiteId" class="form-control" id="siteStatusSite" asp-items="ViewBag.StatusSiteId">
+                                    <option>Selecione...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" value="Adicionar" onclick="adicionarSite()" class="btn btn-primary" data-dismiss="modal" aria-label="Close"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/localidadeSite.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function(){
+            $("#campoEmpresa").hide();
+            $("#campoPlaca").hide();
+            $("#campoCondutor").hide();
+            $("#campoTransportadora").hide();
+            exibirCamposTipoOcorrencia();
+        }
+
+        function pegaIdSite(id) {
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetSites")",
+                data: { "id": id },
+                success: function (data) {
+                    $("#cep").val(data.site.cep);
+                    $("#endereco").val(data.site.endereco);
+                    $("#municipio").val(data.site.municipio);
+                    $("#estado").val(data.site.uf);
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+            return id;
+        }
+
+        function pegaIdTipoSite(id) {
+
+            var selectNomeSite = document.getElementById("nomeSite");
+
+            selectNomeSite.innerHTML = '';
+            var option = document.createElement('option');
+            option.text = "Selecione...";
+
+            selectNomeSite.add(option);
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetSitesByTipoSite")",
+                data: { "id": id },
+                success: function (data) {
+                    var dados = data.site;
+                    var idsNome = data.ids;
+                    for (let i = 0; i < dados.length; i++) {
+
+                        var option = document.createElement('option');
+                        option.value = idsNome[i];
+                        option.text = dados[i];
+                        selectNomeSite.add(option);
+                    }
+
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+
+        }
+
+        function adicionarSite() {
+
+            var tipoSite = $("#siteTipoSite").val();
+            var nomeSite = $("#siteNomeSite").val();
+            var uf = $("#siteUF").val();
+            var municipio = $("#siteMunicipio").val();
+            var endereco = $("#siteEndereco").val();
+            var cep = $("#siteCep").val();
+            var sistemaBluetooth = $("#siteSistemaBluetooth").val();
+            var sistemaRastreamento = $("#siteSistemaRastreamento").val();
+            var statusSite = $("#siteStatusSite").val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarSite")",
+                data: { "tipoSite": tipoSite, "nomeSite": nomeSite, "uf": uf, "municipio": municipio, "endereco": endereco, "cep": cep, "sistemaBluetooth": sistemaBluetooth, "sistemaRastreamento": sistemaRastreamento, "statusSite": statusSite },
+                success: function (data) {
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+
+            $("#siteNomeSite").val("");
+            $("#siteUF").val("");
+            $("#siteMunicipio").val("");
+            $("#siteEndereco").val("");
+            $("#siteCep").val("");
+            $("#siteTipoSite").val(1);
+            $("#siteSistemaBluetooth").val(1);
+            $("#siteSistemaRastreamento").val(1);
+            $("#siteStatusSite").val(1);
+        }
+
+        function exibirCamposAcionadoProntoAtendimento(){
+            var acionadoProntoAtendimento = $("#ddlAcionadoProntoAtendimento").val();
+
+            if(acionadoProntoAtendimento != 1){
+                $("#campoEmpresa").hide();
+                $("#campoPlaca").hide();
+                $("#campoCondutor").hide();
+            }
+            else{
+                    $("#campoEmpresa").show();
+                    $("#campoPlaca").show();
+                    $("#campoCondutor").show();
+            }
+        }
+
+        function exibirCamposTipoOcorrencia(){
+            var tipoOcorrencia = $('#ddlTipoOcorrencia').val()
+
+            if(tipoOcorrencia == 20){
+                $("#campoInformacaoComplementar").hide();
+                $("#campoDetentora").hide();
+                $("#campoLocal").hide();
+                $("#campoAmbiente").hide();
+                $("#campoEventoERB").hide(); 
+                $("#campoTipoAlarme").hide();
+                $("#campoAreaAtendimento").hide();
+                $("#campoAcionadoProntoAtendimento").hide();
+            }else{
+                $("#campoInformacaoComplementar").show();
+                $("#campoDetentora").show();
+                $("#campoLocal").show();
+                $("#campoAmbiente").show();
+                $("#campoEventoERB").show(); 
+                $("#campoTipoAlarme").show();
+                $("#campoAreaAtendimento").show();
+                $("#campoAcionadoProntoAtendimento").show();
+            }
+        }
+
+
+        function exibirDdlTransportadora(){
+            
+            var tipoSite = $("#ddlTipoSite").val();
+
+            if(tipoSite == 30 || tipoSite == 31){
+                $("#campoTransportadora").show();
+            }
+            else{
+                    $("#campoTransportadora").hide();
+            }
+
+        }
+
+        function tipoSiteTipoOcorrencia(){
+
+            var idTipoSite = $("#ddlTipoSite").val();
+            var selectTipoOcorrencia = document.getElementById("ddlTipoOcorrencia");
+            var optionsAtuaisTipoOcorrencia = document.querySelectorAll('#ddlTipoOcorrencia option');
+
+            optionsAtuaisTipoOcorrencia.forEach(o => o.remove());
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetIdTipoSiteTipoOcorrencia")",
+                data: { "idTipoSite": idTipoSite },
+                success: function (data) {
+                    console.log(data)
+
+                    var idTipoOcorrenciaOpt = data.listaDeTipoOcorrencia;
+                    var nomeTipoOcorrenciaOpt = data.listaDeNomesTipoOcorrencia;
+                    for (let i = 0; i < idTipoOcorrenciaOpt.length; i++) {
+
+                        var option = document.createElement('option');
+                        option.value = idTipoOcorrenciaOpt[i];
+                        option.text = nomeTipoOcorrenciaOpt[i];
+                        selectTipoOcorrencia.add(option);
+                        
+                    }
+
+
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+
+        }
+
+    </script>
+ }
+
+

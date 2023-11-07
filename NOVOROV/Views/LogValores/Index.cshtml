@@ -1,0 +1,194 @@
+﻿@model IEnumerable<NOVOROV.Models.LogValor>
+
+
+@{
+    ViewData["Title"] = "Log de Valores";
+
+    <head>
+        <link rel="stylesheet" href="~/css/jquery.datatables.min.css" />
+        <link rel="stylesheet" href="~/css/Filter.css" />
+    </head>
+
+    <style>
+        /*table.dataTable.no-footer {
+                                        border: 1px solid #dee2e6 !important;
+                                    }*/
+
+        .styled-table tbody {
+            //background-color: var(--primary);
+        }
+
+        .my-trs tr {
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+            .my-trs tr td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .my-trs tr:hover {
+                color: var(--primary);
+                transform: translateX(13px);
+            }
+    </style>
+}
+
+
+<h4>Log de Valores</h4>
+
+<div class="panel panel-primary filterable">
+    <div class="w-100 d-flex align-items-center justify-content-between mt-2 mb-4">
+        <h3 class="panel-title">
+            <button class="bttn bttn-pill bttn-sm bttn-primary btn-filter">
+                <i class="fas fa-filter"></i>
+                Ativar Filtro
+            </button>
+        </h3>
+
+        <h5 class="panel-title">
+            <a class="bttn bttn-pill bttn-sm bttn-primary" asp-action="ExportFile">
+                <i class="fa fa-file-signature"></i>
+                Exportar relatório
+            </a>
+        </h5>
+    </div>
+
+<table id="tableOcorrencias" class="table styled-table" style="font-size: small;">
+    <thead class="styled-table-thead">
+        <tr>
+                <th>
+                    ROV
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoOcorrencia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoSite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataAlteracaoValor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorAlteradoPor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorConteudoAnterior)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorConteudoAtual)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorDiferenca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorDiferencaPercentual)
+                </th>
+        </tr>
+    </thead>
+    <thead>
+        <tr class="filters">
+            <th>
+                <input type="text" class="form-control"  disabled />
+            </th>
+                        <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+                <th>
+                    <input type="text" class="form-control" disabled />
+                </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+            <th>
+                <input type="text" class="form-control" disabled />
+            </th>
+        </tr>
+    </thead>
+
+    <tbody class="my-trs">
+        @foreach (var item in Model)
+        {
+            <tr onclick="location.href='@(Url.Action("Edit", "Ocorrencias", new { id = item.OcorrenciaId }))'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OcorrenciaId)
+                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoOcorrencia.NomeTipoOcorrencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoSite.NomeTipoSite)
+                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataAlteracaoValor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorAlteradoPor.NomeUsuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorConteudoAnterior)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorConteudoAtual)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorDiferenca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorDiferencaPercentual) %
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+@section Scripts{
+    <script src="~/js/jquery.datatables.min.js"></script>
+    <script src="~/js/Filter.js"></script>
+
+    <script type="text/javascript">
+        const dataTableOptions = {
+            language: {
+                "sEmptyTable": "Não foi encontrado nenhum registo",
+                "sLoadingRecords": "A carregar...",
+                "sProcessing": "A processar...",
+                "sLengthMenu": "Mostrar _MENU_ registos",
+                "sZeroRecords": "Não foram encontrados resultados",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                "sInfoEmpty": "Mostrando de 0 até 0 de 0 registos",
+                "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
+                "sInfoPostFix": "",
+                "sSearch": "Procurar:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Primeiro",
+                    "sPrevious": "Anterior",
+                    "sNext": "Seguinte",
+                    "sLast": "Último"
+                }
+            },
+            paging: true,
+            ordering: true,
+        };
+
+        $(document).ready(function () {
+            $('#tableOcorrencias').DataTable(dataTableOptions);
+        });
+    </script>
+}

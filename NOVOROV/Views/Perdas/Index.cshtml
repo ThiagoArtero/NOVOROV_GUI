@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NOVOROV.Models.Perda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEquipamentoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantidadePerda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPerda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorEfetivamenteRecuperado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPerdaEvitada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoSinistro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEquipamento.NomeTipoEquipamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantidadePerda)
+                </td>
+                <td style="color:red;">
+                    @Html.DisplayFor(modelItem => item.ValorPerda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorEfetivamenteRecuperado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPerdaEvitada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoSinistro)
+                </td>
+                <td>
+                    <a class="btn btn-icon text-primary" asp-controller="Perdas" asp-action="Edit" asp-route-id="@item.Id" asp-route-ocorrenciaId="@item.OcorrenciaId">
+                        <i class="fa fa-file-signature"></i>
+                    </a>
+                    <a class="btn btn-icon text-danger" asp-controller="Perdas" asp-action="Delete" asp-route-id="@item.Id" asp-route-ocorrenciaId="@item.OcorrenciaId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

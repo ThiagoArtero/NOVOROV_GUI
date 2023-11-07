@@ -1,0 +1,52 @@
+﻿@model NOVOROV.Models.DropDownLists.Funcionalidade
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h4> Criar nova funcionalidade</h4>
+
+<div>
+    <button onclick="location.href='@Url.Action("Index")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="NomeFuncionalidade" class="control-label"></label>
+                <input asp-for="NomeFuncionalidade" class="form-control" />
+                <span asp-validation-for="NomeFuncionalidade" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="DescricaoFuncionalidade" class="control-label"></label>
+                <textarea asp-for="DescricaoFuncionalidade" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="DescricaoFuncionalidade" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+   @* <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>*@
+
+    <div class="form-group">
+        <button type="submit" value="Index" class="bttn bttn-md bttn-unite bttn-primary">Gravar</button>
+    </div>
+</form>
+
+
+
+
+

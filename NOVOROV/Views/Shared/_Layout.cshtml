@@ -1,0 +1,279 @@
+﻿@{
+    string userRole = (string)Context.Items["UserRole"];
+    string userName = (string)Context.Items["UserName"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Novo Rov</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/navbar.css" />
+    <link rel="stylesheet" href="~/css/error.css" />
+    <link rel="stylesheet" href="~/css/fstdropdown.min.css" />
+    <link rel="stylesheet" href="~/css/bttn.min.css" />
+    <link rel="stylesheet" href="~/css/toastr.min.css" />
+    <link rel="stylesheet" href="~/css/notif.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body class="sb-sidenav-toggled">
+    @*@{
+    NotificationsModel notificationsModel = (NotificationsModel)Context.Items["NotificationsModel"];
+    }*@
+
+
+    @*
+    NotificationsModel notificationsModel = (NotificationsModel)Context.Items["NotificationsModel"];
+    <script type="text/javascript">
+    $.blockUI({
+    message: `<div class="d-flex align-items-center justify-content-center">
+    <h4>Carregando...</h4>
+    <div class="spinner-border text-primary ml-auto" style="width: 3rem; height: 3rem;" role="status" aria-hidden="true"></div>
+    </div>`,
+    css: {
+    backgroundColor: '#e3f2fd',
+    color: '#000',
+    borderRadius: '2rem',
+    borderColor: '#fff',
+    fontWeight: '300',
+    padding: '1rem'
+    }
+    });
+    </script>*@
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" style="color: #007bff;" asp-controller="Home" asp-action="Index">
+                    <span class="badge badge-primary">
+                        NOVO
+                    </span>
+                    ROV
+                </a>
+            
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>
+                            <a class="btn btn-icon" id="sidebarToggle" style="color: #007bff;">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary mt-1" asp-area="" asp-controller="Ocorrencias" asp-action="MinhasOcorrencias">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-inbox" viewBox="0 0 16 16">
+                                    <path d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm9.954 5H10.45a2.5 2.5 0 0 1-4.9 0H1.066l.32 2.562a.5.5 0 0 0 .497.438h12.234a.5.5 0 0 0 .496-.438L14.933 9zM3.809 3.563A1.5 1.5 0 0 1 4.981 3h6.038a1.5 1.5 0 0 1 1.172.563l3.7 4.625a.5.5 0 0 1 .105.374l-.39 3.124A1.5 1.5 0 0 1 14.117 13H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .106-.374l3.7-4.625z" />
+                                </svg> Minhas Ocorrências
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary mt-1" asp-controller="Chamados" asp-action="Index">
+                                <i class="fa fa-globe d-inline"></i>
+                                Chamados
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary mt-1" asp-controller="Espelhos" asp-action="Index">
+                                <i class="fa fa-star d-inline"></i>
+                                Espelhos
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="navbar-nav mr-4 d-flex align-content-center">
+                        <span class="text-muted" style="color: #007bff;">
+                            <i class="fas fa-cogs d-inline" style="color: #007bff;"></i>
+                            <p class="nav navbar-text" style="color: #007bff;">@userRole</p>
+                        </span>
+                    </div>
+
+
+
+                    <div class="navbar-nav mr-4 d-flex align-content-center">
+                        <span class="text-muted ">
+                            <i class="fa fa-user d-inline" style="color: #007bff;"></i>
+                            <p class="nav navbar-text" style="color: #007bff;">@userName </p>
+                        </span>
+                    </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav" style="overflow-y: scroll; height: 500px;">
+
+                        <div class="sb-sidenav-menu-heading">Ocorrências</div>
+
+                        <a class="nav-link" asp-controller="Ocorrencias" asp-action="Create">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            Nova Ocorrência
+                        </a>
+                        <a class="nav-link" asp-controller="Ocorrencias" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            Listar Ocorrências
+                        </a>
+
+                        <a class="nav-link" asp-controller="Bibliotecas" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            Bibliotecas
+                        </a>
+
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            Painel de Ocorrências
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading">Relatórios</div>
+                        <a class="nav-link" asp-controller="Relatorios" asp-action="PainelDeControle">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            Geral
+                        </a>
+                        <a class="nav-link" asp-controller="Logs" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                            Log de Alterações
+                        </a>
+                        <a class="nav-link" asp-controller="LogValores" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            Log de Valores
+                        </a>
+@*                        <a class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            Alterações de Valores
+                        </a>
+@*                        <a class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            Alterações para Campo
+                        </a>
+                        <a class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            Campo e Valores
+                        </a>
+                        <a class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-file"></i>
+                            </div>
+                            Seguros
+                        </a>
+                        <a class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-clipboard"></i>
+                            </div>
+                            Auditória
+                        </a>*@
+
+                        <div class="sb-sidenav-menu-heading">Manutenção</div>
+                        <a class="nav-link" asp-controller="AlteracaoTabelas" asp-action="Index">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            Alterar Tabela
+                        </a>
+                        <a class="nav-link" asp-controller="TipoOcorrenciaTipoSites" asp-action="Create">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            Tipo Site e Ocorrência
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Administrador</div>
+                        <a class="nav-link" asp-controller="Funcionalidades" asp-action="MenuFuncionalidade">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            Console Administrativo
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+
+            <div class="notification-container" id="divNotificationContainer">
+                <h3>
+                    Minhas Tarefas
+                </h3>
+
+                <label class="notification">
+                    <p>Sem tarefas no momento.</p>
+                </label>
+
+                <input class="checkbox" type="checkbox" checked />
+                <a style="text-decoration:none;">
+                    <label class="notification">
+                        <p></p>
+                        <span class="notification-date text-primary">Ocorrência: </span>
+                        <br />
+                        <span class="notification-date text-warning">Prazo: </span>
+                    </label>
+                </a>
+            </div>
+
+            <main role="main" class="container py-3">
+                @RenderBody()
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Novo Rov &middot; @DateTime.Now.Year</div>
+                        <div>
+                            <a>Termos &amp; Condições</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/all.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/navbar.js"></script>
+    <script src="~/js/fstdropdown.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+    <script src="~/js/jquery.mask.js"></script>
+
+    @await Html.PartialAsync("~/Views/Shared/_NotificationPartial.cshtml")
+    @RenderSection("Scripts", required: false)
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

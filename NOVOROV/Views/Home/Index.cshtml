@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Bem-vindo ao Novo ROV";
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/bootstrap-extended.min.css">
+        <link rel="stylesheet" type="text/css" href="~/css/simple-line-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="~/css/colors.min.css">
+    </head>
+}
+
+<section id="stats-subtitle">
+    <div class="row">
+        <div class="col-12 mt-3 mb-1">
+            <h4 class="text-uppercase">Bem-vindo ao Novo ROV!</h4>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body cleartfix">
+                        <div class="media align-items-stretch">
+                            <div class="align-self-center">
+                                <i class="icon-drawer warning font-large-2 mr-2"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4> Total Ocorrências: @TempData["totalOcorrencias"]</h4>
+                                <span>Total ocorrências cadastradas.</span>
+                            </div>
+                            <div class="warning align-self-center">
+                                <h1></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card overflow-hidden">
+                <div class="card-content">
+                    <div class="card-body cleartfix">
+                        <div class="media align-items-stretch">
+                            <div class="align-self-center">
+                                <i class="icon-layers primary font-large-2 mr-2"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4>Ocorrências: @TempData["OcorrenciasSemBo"]</h4>
+                                <span>Ocorrências sem B.O</span>
+                            </div>
+                            <div class="primary align-self-center">
+                                <h1></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body cleartfix">
+                        <div class="media align-items-stretch">
+                            <div class="align-self-center">
+                                <i class="icon-badge success font-large-2 mr-2"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4>Encerradas: @TempData["TotalOcorrenciasEncerradas"]</h4>
+                                <span>Total de ocorrências encerradas.</span>
+                            </div>
+                            <div class="success align-self-center">
+                                <h1></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body cleartfix">
+                        <div class="media align-items-stretch">
+                            <div class="align-self-center">
+                                <i class="icon-hourglass danger font-large-2 mr-2"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4>Apuração</h4>
+                                <span>Variação Perda</span>
+                            </div>
+                            <div class="danger align-self-center">
+                                <h1></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    $(document).ready(async function () {
+        const AGREE_KEY = 'agree';
+
+        const agreed = sessionStorage.getItem(AGREE_KEY);
+
+        if (agreed) return;
+
+        const response = await fetch('/home/BuscaAvisos');
+        const avisos = await response.json();
+
+        const queue = avisos.map(av => {
+            return {
+                title: av.titulo,
+                text: av.descricao
+            }
+        });
+
+        const ids = avisos.map((_av, index) => index + 1);
+
+        Swal.mixin({
+            icon: 'warning',
+            confirmButtonText: 'Concordo! &ensp; &rarr;',
+            cancelButtonText: 'Discordo!',
+            showCancelButton: true,
+            progressSteps: ids,
+        }).queue(queue).then((result) => {
+            sessionStorage.setItem(AGREE_KEY, true);
+
+            if (result.dismiss && result.dismiss === 'cancel') {
+                window.location.href = '/Error/Fatal';
+            }
+        });
+    });
+</script>

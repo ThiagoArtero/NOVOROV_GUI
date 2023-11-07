@@ -1,0 +1,70 @@
+﻿@model NOVOROV.Models.Espelho
+
+@{
+    ViewData["Title"] = "Novo Espelho";
+}
+
+<h3>Novo Espelho</h3>
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Home")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+
+<form asp-action="Create" enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+       <div class="col">
+            <div class="form-group">
+                <label asp-for="NomeEspelho" class="control-label"></label>
+                <input asp-for="NomeEspelho" class="form-control" />
+                <span asp-validation-for="NomeEspelho" class="text-danger"></span>
+            </div>
+       </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="control-label">Documento:</label>
+                <input type="file" name="postedFile" class="form-control" />
+            </div>
+        </div>
+       @*<div class="col">
+            <div class="form-group">
+                <label asp-for="DataEspelho" class="control-label"></label>
+                <input asp-for="DataEspelho" class="form-control" />
+                <span asp-validation-for="DataEspelho" class="text-danger"></span>
+            </div>
+       </div>*@
+    </div>
+    <div class="row">
+        @*<div class="col">
+            <div class="form-group">
+                <label asp-for="DataEnvioFinanceiro" class="control-label"></label>
+                <input asp-for="DataEnvioFinanceiro" class="form-control" />
+                <span asp-validation-for="DataEnvioFinanceiro" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                 <label asp-for="DataEnvioAnalise" class="control-label"></label>
+                 <input asp-for="DataEnvioAnalise" class="form-control" />
+                 <span asp-validation-for="DataEnvioAnalise" class="text-danger"></span>
+            </div>  
+        </div>*@
+        @*<div class="col">
+             <div class="form-group">
+                  <label class="control-label">Documento:</label>
+                  <input type="file" name="postedFile" class="form-control" />
+             </div>
+        </div>*@
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="bttn bttn-md bttn-unite bttn-primary mb-1 mt-2">Gravar</button>
+    </div>
+</form>
+

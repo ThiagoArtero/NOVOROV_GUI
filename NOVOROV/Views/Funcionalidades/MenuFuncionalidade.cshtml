@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Funcionalidades";
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/bootstrap-extended.min.css">
+        <link rel="stylesheet" type="text/css" href="~/css/simple-line-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="~/css/colors.min.css">
+
+        <style>
+
+
+
+            .card {
+                transition: all 0.25s ease-in-out !important;
+                cursor: pointer;
+            }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+        </style>
+
+    </head>
+}
+
+<div class="row">
+            <div class="col-12 mt-3 mb-1">
+                <h4 class="text-uppercase">Console Administrativo</h4>
+                <p>Gestão de usuários, manutenção de perfils e aviso.</p>
+            </div>
+    </div>
+
+<div class="row">
+
+    <div class="col-xl-6 col-sm-6 col-12">
+        <div class="card p-1" onclick="location.href='@(Url.Action("index", "Usuarios"))'">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex">
+                        <div class="align-self-center">
+                            <i class="icon-users primary font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body text-right p-1">
+                            <h3 class="primary">Usuários</h3>
+                            <span>Atribuir funcionalidade a um usuário</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12">
+        <div class="card p-1" onclick="location.href='@(Url.Action("AtribuicaoFuncionalidade", "Funcionalidades"))'">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex">
+                        <div class="align-self-center">
+                            <i class="icon-users danger font-large-2 float-left"></i>
+                        </div>
+                        <div class="align-self-center ml-3">
+                            <i class="icon-settings danger font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body text-right p-1">
+                            <h3 class="danger">Perfil - Funcionalidades</h3>
+                            <span>Atribuir funcionalidade a um perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xl-6 col-sm-6 col-12">
+        <div class="card p-1" onclick="location.href='@(Url.Action("Index", "PerfilFuncionalidades"))'">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex">
+                        <div class="align-self-center">
+                            <i class="icon-list warning font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body text-right p-1">
+                            <h3 class="warning">Visualizar Funcionalidades</h3>
+                            <span>Listagem das funcionalidades de cada tipo de perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12">
+        <div class="card p-1" onclick="location.href='@(Url.Action("Index", "Avisos"))'">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex">
+                        <div class="align-self-center">
+                            <i class="icon-bell success font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body text-right p-1">
+                            <h3 class="success">Avisos</h3>
+                            <span>Gerenciamento das mensagens iniciais</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

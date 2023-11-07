@@ -1,0 +1,55 @@
+﻿@model NOVOROV.Models.ApoliceSeguro
+
+@{
+    ViewData["Title"] = "Editando Apólice Seguro";
+}
+
+<h4>Editando Apólice Seguro</h4>
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="row mb-3">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoSiteId" class="control-label">Tipo site</label>
+                <select asp-for="TipoSiteId" class="form-control" asp-items="ViewBag.TipoSiteId" id="ddlTipoSite">
+                    <option>Selecionar novo site</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoApoliceSeguroId" class="control-label">Tipo Apólice Seguro</label>
+                <select asp-for="TipoApoliceSeguroId" class="form-control" asp-items="ViewBag.TipoApoliceSeguroId" id="idTipoApoliceSeguro">
+                    <option>Selecione...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="ValorApoliceSeguro" class="control-label">Valor apolice seguro</label>
+                <input asp-for="ValorApoliceSeguro" class="form-control" id="valorApoliceSeguro" />
+                <span asp-validation-for="ValorApoliceSeguro" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="TipoOcorrenciaId" class="control-label">Valor apolice seguro</label>
+                <select asp-for="TipoOcorrenciaId" class="form-control" asp-items="ViewBag.TipoOcorrenciaId">
+                    <option>Selecione...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DescricaoApoliceSeguro" class="control-label">Descricao apolice seguro</label>
+        <textarea asp-for="DescricaoApoliceSeguro" class="form-control" rows="4" id="valorDescricaoApoliceSeguro"></textarea>
+        <span asp-validation-for="DescricaoApoliceSeguro" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+    </div>
+</form>
+

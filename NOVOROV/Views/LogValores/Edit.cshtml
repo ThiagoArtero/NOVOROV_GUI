@@ -1,0 +1,66 @@
+﻿@model NOVOROV.Models.LogValor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>LogValor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="OcorrenciaId" class="control-label"></label>
+                <select asp-for="OcorrenciaId" class="form-control" asp-items="ViewBag.OcorrenciaId"></select>
+                <span asp-validation-for="OcorrenciaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataAlteracaoValor" class="control-label"></label>
+                <input asp-for="DataAlteracaoValor" class="form-control" />
+                <span asp-validation-for="DataAlteracaoValor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAlteradoPorId" class="control-label"></label>
+                <select asp-for="ValorAlteradoPorId" class="form-control" asp-items="ViewBag.ValorAlteradoPorId"></select>
+                <span asp-validation-for="ValorAlteradoPorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorPerdaTotal" class="control-label"></label>
+                <input asp-for="ValorPerdaTotal" class="form-control" />
+                <span asp-validation-for="ValorPerdaTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorConteudoAnterior" class="control-label"></label>
+                <input asp-for="ValorConteudoAnterior" class="form-control" />
+                <span asp-validation-for="ValorConteudoAnterior" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorConteudoAtual" class="control-label"></label>
+                <input asp-for="ValorConteudoAtual" class="form-control" />
+                <span asp-validation-for="ValorConteudoAtual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorDiferenca" class="control-label"></label>
+                <input asp-for="ValorDiferenca" class="form-control" />
+                <span asp-validation-for="ValorDiferenca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorDiferencaPercentual" class="control-label"></label>
+                <input asp-for="ValorDiferencaPercentual" class="form-control" />
+                <span asp-validation-for="ValorDiferencaPercentual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

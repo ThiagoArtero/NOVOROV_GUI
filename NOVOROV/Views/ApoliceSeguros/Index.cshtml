@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NOVOROV.Models.ApoliceSeguro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Apólice Seguros</h4>
+
+<p>
+    <a asp-action="Create">Criar nova Apólice Seguro</a>
+</p>
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoApoliceSeguro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoApoliceSeguro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorApoliceSeguro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoSite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoOcorrencia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoApoliceSeguro.NomeTipoApoliceSeguro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoApoliceSeguro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorApoliceSeguro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoSite.NomeTipoSite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoOcorrencia.NomeTipoOcorrencia)
+            </td>
+            <td>
+                    <a class="btn btn-icon text-primary" asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fa fa-file-signature"></i>
+                    </a>
+                    <a class="btn btn-icon text-danger"  asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fa fa-trash"></i>
+                    </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<NOVOROV.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<h1>Gestão de Usuários</h1>
+
+<div>
+    <button onclick="location.href='@Url.Action("MenuFuncionalidade", "Funcionalidades")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+
+<div class="mt-4 mb-3 d-flex justify-content-between">
+    <button onclick="location.href='@Url.Action("Create", "Usuarios")'" class="bttn-stretch bttn-md bttn-primary">
+        Adicionar novo usuário
+        <i class="fa fa-user-plus"></i>
+    </button>
+
+    <button onclick="location.href='@Url.Action("EncaminharParaUsuarioFuncionalidade", "Funcionalidades")'" class="bttn-stretch bttn-md bttn-primary">
+        Atribuir funcionalidades
+        <i class="fa fa-user-cog"></i>
+    </button>
+</div>
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicioAcesso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioAcesso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefoneUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perfil.NomePerfil)
+            </td>
+            <td style="display:flex;">
+                    <a asp-action="Edit" asp-route-id="@item.UsuarioId" style="margin-right:5px">
+                        <i class="fa fa-user-edit"></i>
+                </a> |
+                @*<a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> *@
+                <a asp-action="Delete" asp-route-id="@item.UsuarioId" style="color:#FF6961;margin-left:5px;">
+                        <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

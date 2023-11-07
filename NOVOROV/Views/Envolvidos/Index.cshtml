@@ -1,0 +1,74 @@
+﻿@model IEnumerable<NOVOROV.Models.Envolvido>
+
+@{
+    ViewData["Title"] = "Envolvidos";
+
+    <head>
+        <link rel="stylesheet" href="~/css/jquery.datatables.min.css" />
+    </head>
+
+    <style>
+        /*table.dataTable.no-footer {
+                                border: 1px solid #dee2e6 !important;
+                            }*/
+
+        .styled-table tbody {
+            //background-color: var(--primary);
+        }
+
+        .my-trs tr {
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+            .my-trs tr td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .my-trs tr:hover {
+                color: var(--primary);
+                transform: translateX(13px);
+            }
+    </style>
+
+}
+
+<table class="styled-table w-100">
+    <thead class="styled-table-thead">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeEnvolvido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEnvolvimento)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="my-trs">
+        @foreach (var item in Model)
+        {
+            <tr onclick="location.href='@(Url.Action("Edit", "Envolvidos", new { id = item.Id }))'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeEnvolvido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEnvolvimento.NomeTipoEnvolvimento)
+                </td>
+                <td>
+                    <a class="btn btn-icon text-danger" asp-controller="Envolvidos" asp-action="Delete" asp-route-id="@item.Id" asp-route-ocorrenciaId="@item.OcorrenciaId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,102 @@
+﻿@model NOVOROV.Models.Usuario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Usuário</h4> 
+<div>
+    <button onclick="location.href='@Url.Action("Index")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div> 
+<hr />
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="UsuarioId" class="control-label"></label>
+                <input asp-for="UsuarioId" class="form-control" />
+                <span asp-validation-for="UsuarioId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                 <label asp-for="NomeUsuario" class="control-label"></label>
+                 <input asp-for="NomeUsuario" class="form-control" />
+                 <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                 <label asp-for="EmailUsuario" class="control-label"></label>
+                 <input asp-for="EmailUsuario" class="form-control" />
+                 <span asp-validation-for="EmailUsuario" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="DataInicioAcesso" class="control-label"></label>
+                    <input asp-for="DataInicioAcesso" class="form-control" />
+                    <span asp-validation-for="DataInicioAcesso" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="DataFimAcesso" class="control-label"></label>
+                    <input asp-for="DataFimAcesso" class="form-control" />
+                    <span asp-validation-for="DataFimAcesso" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="from-group">
+                    <label asp-for="CmcId" class="control-label"></label>
+                    <select asp-for="CmcId" class="form-control" asp-items="ViewBag.CmcId">
+                        <option>Selecione o cmc:</option>
+                    </select>
+                </div>
+             </div>
+        </div>
+
+        <div class="row">
+
+        <div class="col">
+            <div class="from-group">
+                <label asp-for="GestorId" class="control-label"></label>
+                <select asp-for="GestorId" class="form-control" asp-items="ViewBag.GestorId">
+                    <option >Selecione...</option>
+                </select>
+            </div>
+        </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="TelefoneUsuario" class="control-label"></label>
+                    <input asp-for="TelefoneUsuario" class="form-control" />
+                    <span asp-validation-for="TelefoneUsuario" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PerfilId" class="control-label"></label>
+                    <select asp-for="PerfilId" class="form-control" asp-items="ViewBag.PerfilId">
+                        <option >Selecione o Perfil:</option>
+                    </select>
+                    
+                </div>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <button type="submit" value="Index" class="bttn bttn-md bttn-unite bttn-primary">Gravar</button>
+    </div>
+
+</form>
+

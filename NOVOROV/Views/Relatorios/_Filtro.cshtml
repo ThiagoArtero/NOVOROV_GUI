@@ -1,0 +1,365 @@
+﻿@model IEnumerable<NOVOROV.Models.Ocorrencia>
+
+
+@{
+    ViewData["Title"] = "Index";
+
+    <head>
+        <link rel="stylesheet" href="~/css/jquery.datatables.min.css" />
+        <link rel="stylesheet" href="~/css/Filter.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    </head>
+
+    <style>
+        /*table.dataTable.no-footer {
+                                                border: 1px solid #dee2e6 !important;
+                                            }*/
+
+        .styled-table tbody {
+            //background-color: var(--primary);
+        }
+
+        .my-trs tr {
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+            .my-trs tr td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .my-trs tr:hover {
+                color: var(--primary);
+                transform: translateX(13px);
+            }
+    </style>
+
+}
+
+<table id="tableOcorrenciass" class="table styled-table" style="font-size: small;">
+    <thead class="styled-table-thead">
+        <tr>
+            <th id="idHeader">
+                ROV
+            </th>
+            <th id="dataOcorrenciaHeader">
+                @Html.DisplayNameFor(model => model.DataOcorrencia)
+            </th>
+            <th id="dataRegistroHeader">
+                @Html.DisplayNameFor(model => model.DataRegistro)
+            </th>
+            <th id="cmcHeader">
+                @Html.DisplayNameFor(model => model.Cmc)
+            </th>
+            <th id="tipoOcorrenciaHeader">
+                @Html.DisplayNameFor(model => model.TipoOcorrencia)
+            </th>
+            <th id="statusHeader">
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th id="inboxHeader">
+                @Html.DisplayNameFor(model => model.Inbox)
+            </th>
+            <th id="tipoSiteHeader">
+                @Html.DisplayNameFor(model => model.TipoSite)
+            </th>
+            <th id="seguimentoHeader">
+                @Html.DisplayNameFor(model => model.Seguimento)
+            </th>
+            <th id="eventoERBHeader">
+                @Html.DisplayNameFor(model => model.EventoERB)
+            </th>
+            <th id="historicoHeader">
+                @Html.DisplayNameFor(model => model.Historico)
+            </th>
+            <th id="informacaoComplementarHeader">
+                @Html.DisplayNameFor(model => model.InformacaoComplementar)
+            </th>
+            <th id="localHeader">
+                @Html.DisplayNameFor(model => model.Local)
+            </th>
+            <th id="manutencaoHeader">
+                @Html.DisplayNameFor(model => model.Manutencao)
+            </th>
+            <th id="municipioHeader">
+                @Html.DisplayNameFor(model => model.Municipio)
+            </th>
+            <th id="nomeSiteHeader">
+                @Html.DisplayNameFor(model => model.Site.NomeSite)
+            </th>
+            <th id="placaHeader">
+                @Html.DisplayNameFor(model => model.Placa)
+            </th>
+            <th id="responsavelOperacionalHeader">
+                @Html.DisplayNameFor(model => model.ResponsavelOperacionalId)
+            </th>
+            <th id="sistemaFechaduraBluetoothHeader">
+                @Html.DisplayNameFor(model => model.SistemaFechaduraBluetooth)
+            </th>
+            <th id="sistemaRastreamentoHeader">
+                @Html.DisplayNameFor(model => model.SistemaRastreamento)
+            </th>
+            <th id="estadoHeader">
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th id="acionadoProntoAtendimentoHeader">
+                @Html.DisplayNameFor(model => model.AcionadoProntoAtendimento)
+            </th>
+            <th id="alarmeRealAcidentalHeader">
+                @Html.DisplayNameFor(model => model.AlarmeRealAcidente)
+            </th>
+            <th id="ambienteHeader">
+                @Html.DisplayNameFor(model => model.Ambiente)
+            </th>
+            <th id="analiseConclusaoHeader">
+                @Html.DisplayNameFor(model => model.AnaliseConclusao)
+            </th>
+            <th id="areaInternaHeader">
+                @Html.DisplayNameFor(model => model.AreaInterna)
+            </th>
+            <th id="areaSaudeHeader">
+                @Html.DisplayNameFor(model => model.AreaSaude)
+            </th>
+            <th id="areaTratamentoHeader">
+                @Html.DisplayNameFor(model => model.AreaTratamento)
+            </th>
+            <th id="atendeuSLAHeader">
+                @Html.DisplayNameFor(model => model.AtendimentoSLA)
+            </th>
+            <th id="bombeiroCivilHeader">
+                @Html.DisplayNameFor(model => model.BombeiroCivil)
+            </th>
+            <th id="cargoFuncaoHeader">
+                @Html.DisplayNameFor(model => model.CargoFuncao)
+            </th>
+            <th id="cepHeader">
+                @Html.DisplayNameFor(model => model.CEP)
+            </th>
+            <th id="conclusaoHeader">
+                @Html.DisplayNameFor(model => model.Conclusao)
+            </th>
+            <th id="condutorHeader">
+                @Html.DisplayNameFor(model => model.Condutor)
+            </th>
+            <th id="dataConclusaoHeader">
+                @Html.DisplayNameFor(model => model.DataConclusao)
+            </th>
+            <th id="dataReagendamentoSisHeader">
+                @Html.DisplayNameFor(model => model.DataReagendamentoSis)
+            </th>
+            <th id="detentoraHeader">
+                @Html.DisplayNameFor(model => model.Detentora)
+            </th>
+            <th id="diasConclusaoHeader">
+                @Html.DisplayNameFor(model => model.DiasConclusao)
+            </th>
+            <th id="empresaHeader">
+                @Html.DisplayNameFor(model => model.Empresa.NomeEmpresa)
+            </th>
+            <th id="enderecoHeader">
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th id="tipoAlarmeHeader">
+                @Html.DisplayNameFor(model => model.TipoAlarme)
+            </th>
+            <th id="transportadoraHeader">
+                @Html.DisplayNameFor(model => model.Transportadora)
+            </th>
+            <th id="observacaoHeader">
+                Observação
+            </th>
+            <th id="usuarioAlteracaoOcorrenciaHeader">
+                @Html.DisplayNameFor(model => model.UsuarioAlteracaoOcorrencia)
+            </th>
+        </tr>
+    </thead>
+    <tbody class="my-trs">
+        @foreach (var item in Model)
+        {
+            <tr id="linhaTeste" onclick="location.href='@(Url.Action("Edit", "Ocorrencias", new { id = item.Id }))'">
+                <td id="idLinha">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td id="dataOcorrenciaLinha">
+                    @Html.DisplayFor(modelItem => item.DataOcorrencia)
+                </td>
+                <td id="dataRegistroLinha">
+                    @Html.DisplayFor(modelItem => item.DataRegistro)
+                </td>
+                <td id="cmcLinha">
+                    @Html.DisplayFor(modelItem => item.Cmc.NomeCmc)
+                </td>
+                <td id="tipoOcorrenciaLinha">
+                    @Html.DisplayFor(modelItem => item.TipoOcorrencia.NomeTipoOcorrencia)
+                </td>
+                <td id="statusLinha">
+                    @Html.DisplayFor(modelItem => item.Status.NomeStatus)
+                </td>
+                <td id="inboxLinha">
+                    @Html.DisplayFor(modelItem => item.Inbox.NomeInbox)
+                </td>
+
+                <td id="tipoSiteLinha">
+                    @Html.DisplayFor(modelItem => item.TipoSite.NomeTipoSite)
+                </td>
+                <td id="seguimentoLinha">
+                    @Html.DisplayFor(modelItem => item.Seguimento.NomeSeguimento)
+                </td>
+                <td id="eventoERBLinha">
+                    @Html.DisplayFor(modelItem => item.EventoERB.NomeEventoERB)
+                </td>
+                <td id="historicoLinha">
+                    @Html.DisplayFor(modelItem => item.Historico)
+                </td>
+                <td id="informacaoComplementarLinha">
+                    @Html.DisplayFor(modelItem => item.InformacaoComplementar.NomeInformacaoComplementar)
+                </td>
+                <td id="localLinha">
+                    @Html.DisplayFor(modelItem => item.Local.NomeLocal)
+                </td>
+                <td id="manutencaoLinha">
+                    @Html.DisplayFor(modelItem => item.Manutencao.NomeManutencao)
+                </td>
+                <td id="municipioLinha">
+                    @Html.DisplayFor(modelItem => item.Municipio)
+                </td>
+                <td id="nomeSiteLinha">
+                    @Html.DisplayFor(modelItem => item.Site.NomeSite)
+                </td>
+                <td id="placaLinha">
+                    @Html.DisplayFor(modelItem => item.Placa)
+                </td>
+                <td id="responsavelOperacionalLinha">
+                    @Html.DisplayFor(modelItem => item.ResponsavelOperacionalId)
+                </td>
+                <td id="sistemaFechaduraBluetoothLinha">
+                    @Html.DisplayFor(modelItem => item.SistemaFechaduraBluetooth.NomeSistemaFechaduraBluetooth)
+                </td>
+                <td id="sistemaRastreamentoLinha">
+                    @Html.DisplayFor(modelItem => item.SistemaRastreamento.NomeSistemaRastreamento)
+                </td>
+                <td id="estadoLinha">
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td id="acionadoProntoAtendimentoLinha">
+                    @Html.DisplayFor(modelItem => item.AcionadoProntoAtendimento.NomeAcionadoProntoAtendimento)
+                </td>
+                <td id="alarmeRealAcidentalLinha">
+                    @Html.DisplayFor(modelItem => item.AlarmeRealAcidente.NomeAlarmeRealAcidente)
+                </td>
+                <td id="ambienteLinha">
+                    @Html.DisplayFor(modelItem => item.Ambiente)
+                </td>
+                <td id="analiseConclusaoLinha">
+                    @Html.DisplayFor(modelItem => item.AnaliseConclusao.NomeAnaliseConclusao)
+                </td>
+                <td id="areaInternaLinha">
+                    @Html.DisplayFor(modelItem => item.AreaInterna.NomeAreaInterna)
+                </td>
+                <td id="areaSaudeLinha">
+                    @Html.DisplayFor(modelItem => item.AreaSaude.NomeAreaSaude)
+                </td>
+                <td id="areaTratamentoLinha">
+                    @Html.DisplayFor(modelItem => item.AreaTratamento.NomeAreaTratamento)
+                </td>
+                <td id="atendeuSLALinha">
+                    @Html.DisplayFor(modelItem => item.AtendimentoSLA.NomeAtendimentoSLA)
+                </td>
+                <td id="bombeiroCivilLinha">
+                    @Html.DisplayFor(modelItem => item.BombeiroCivil.NomeBombeiroCivil)
+                </td>
+                <td id="cargoFuncaoLinha">
+                    @Html.DisplayFor(modelItem => item.CargoFuncao)
+                <td id="cepLinha">
+                        @Html.DisplayFor(modelItem => item.CEP)
+                </td>
+                <td id="conclusaoLinha">
+                        @Html.DisplayFor(modelItem => item.Conclusao)
+                </td>
+                <td id="condutorLinha">
+                        @Html.DisplayFor(modelItem => item.Condutor)
+                </td>
+                <td id="dataConclusaoLinha">
+                        @Html.DisplayFor(modelItem => item.DataConclusao)
+                </td>
+                <td id="dataReagendamentoSisLinha">
+                        @Html.DisplayFor(modelItem => item.DataReagendamentoSis)
+                </td>
+                <td id="detentoraLinha">
+                        @Html.DisplayFor(modelItem => item.Detentora.NomeDetentora)
+                </td>
+                <td id="diasConclusaoLinha">
+                        @Html.DisplayFor(modelItem => item.DiasConclusao)
+                </td>
+                <td id="empresaLinha">
+                        @Html.DisplayFor(modelItem => item.Empresa.NomeEmpresa)
+                </td>
+                <td id="enderecoLinha">
+                        @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td id="tipoAlarmeLinha">
+                        @Html.DisplayFor(modelItem => item.TipoAlarme)
+                </td>
+                <td id="transportadoraLinha">
+                        @Html.DisplayFor(modelItem => item.Transportadora.NomeTransportadora)
+                </td>
+                <td id="observacaoLinha">
+                        @Html.DisplayFor(modelItem => item.Observacao)
+                </td>
+                <td id="usuarioAlteracaoOcorrenciaLinha">
+                        @Html.DisplayFor(modelItem => item.UsuarioAlteracaoOcorrencia.NomeUsuario)
+                </td>
+                    @*                    <td id="usuarioAlteracaoOcorrenciaLinha">
+            @Html.DisplayFor(modelItem => item.UsuarioAlteracaoOcorrencia.Id)
+            </td>
+            <td id="informacaoOrigemLinha">
+            @Html.DisplayFor(modelItem => item.InformacaoOrigem)
+            </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script src="~/js/jquery.datatables.min.js"></script>
+    <script src="~/js/Filter.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    @*<script src="~/js/site.js"></script>*@
+    <script src="~/js/localidade.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <script type="text/javascript">
+        const dataTableOptions = {
+            language: {
+                "sEmptyTable": "Não foi encontrado nenhum registo",
+                "sLoadingRecords": "A carregar...",
+                "sProcessing": "A processar...",
+                "sLengthMenu": "Mostrar _MENU_ registos",
+                "sZeroRecords": "Não foram encontrados resultados",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                "sInfoEmpty": "Mostrando de 0 até 0 de 0 registos",
+                "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
+                "sInfoPostFix": "",
+                "sSearch": "Procurar:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Primeiro",
+                    "sPrevious": "Anterior",
+                    "sNext": "Seguinte",
+                    "sLast": "Último"
+                }
+            },
+            paging: true,
+            ordering: true,
+        };
+
+        $(document).ready(function () {
+            $('#tableOcorrenciass').DataTable(dataTableOptions);
+        });
+
+
+    </script>
+}

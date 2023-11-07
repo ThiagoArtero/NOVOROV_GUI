@@ -1,0 +1,42 @@
+﻿@model NOVOROV.Models.DropDownLists.Perfil
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Criar novo perfil</h4>
+<div>
+    <button onclick="location.href='@Url.Action("Index")'" class="bttn-stretch bttn-md bttn-primary">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        Voltar
+    </button>
+</div>
+<hr />
+
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="NomePerfil" class="control-label"></label>
+                <input asp-for="NomePerfil" class="form-control" />
+                <span asp-validation-for="NomePerfil" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="form-group">
+                <button type="submit" value="Index" class="bttn bttn-md bttn-unite bttn-primary">Gravar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
